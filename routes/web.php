@@ -3,10 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// Vue SPA Home Page
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
+// SEO - Sitemap
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])
+    ->name('sitemap');
+
+// Laravel Breeze Routes
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -17,9 +23,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin Routes
-Route::prefix('admin')->name('admin.')->group(function () {
+// Admin Routes with proper auth and authorization
+Route::middleware(['auth', 'verified', 'can:manage-catalog'])->prefix('admin')->name('admin.')->group(function () {
+    Route::view('/', 'admin.dashboard')->name('dashboard');
     require __DIR__.'/admin.php';
 });
 
 require __DIR__.'/auth.php';
+
+// Vue SPA Routes - MUST BE LAST!
+// This catches all routes that don't match above and sends them to Vue
+Route::get('/{any}', function () {
+    return view('welcome');
+})->where('any', '^(?!api|admin|login|register|password|dashboard|profile|sitemap\.xml).*$')->name('spa');

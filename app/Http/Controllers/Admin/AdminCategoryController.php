@@ -51,15 +51,16 @@ class AdminCategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string|max:1000',
-            'is_active' => 'boolean',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
             'sort_order' => 'nullable|integer|min:0'
         ]);
 
         // Generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
         
-        // Set default values
-        $validated['is_active'] = $validated['is_active'] ?? true;
+        // Handle checkbox - if not present in request, it means unchecked (false)
+        $validated['is_active'] = $request->has('is_active') ? true : false;
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
         Category::create($validated);
@@ -74,6 +75,7 @@ class AdminCategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $category->loadCount('products');
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -85,22 +87,62 @@ class AdminCategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
             'description' => 'nullable|string|max:1000',
-            'is_active' => 'boolean',
+            'meta_title' => 'nullable|string|max:60',
+            'meta_description' => 'nullable|string|max:160',
             'sort_order' => 'nullable|integer|min:0'
         ]);
 
-        // Generate slug from name
-        $validated['slug'] = Str::slug($validated['name']);
+        // Generate slug from name, but check for uniqueness
+        $newSlug = Str::slug($validated['name']);
         
-        // Set default values
-        $validated['is_active'] = $validated['is_active'] ?? true;
+        // If the new slug is different from current slug, ensure it's unique
+        if ($newSlug !== $category->slug) {
+            $baseSlug = $newSlug;
+            $counter = 1;
+            while (Category::where('slug', $newSlug)->where('id', '!=', $category->id)->exists()) {
+                $newSlug = $baseSlug . '-' . $counter;
+                $counter++;
+            }
+        }
+        
+        $validated['slug'] = $newSlug;
+        
+        // Handle checkbox - if not present in request, it means unchecked (false)
+        $validated['is_active'] = $request->has('is_active') ? true : false;
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
-        $category->update($validated);
-
-        return redirect()
-            ->route('admin.categories.index')
-            ->with('success', 'تم تحديث الفئة بنجاح');
+        try {
+            // Log the update attempt for debugging
+            \Log::info('Attempting to update category', [
+                'category_id' => $category->id,
+                'category_name' => $category->name,
+                'validated_data' => $validated
+            ]);
+            
+            $category->update($validated);
+            
+            // Log successful update
+            \Log::info('Category updated successfully', [
+                'category_id' => $category->id,
+                'new_name' => $category->fresh()->name
+            ]);
+            
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('success', 'تم تحديث الفئة بنجاح');
+        } catch (\Exception $e) {
+            // Log the error
+            \Log::error('Error updating category', [
+                'category_id' => $category->id,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'حدث خطأ أثناء تحديث الفئة: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -108,6 +150,13 @@ class AdminCategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // Log the delete attempt
+        \Log::info('Attempting to delete category', [
+            'category_id' => $category->id,
+            'category_name' => $category->name,
+            'products_count' => $category->products()->count()
+        ]);
+        
         // Check if category has products
         if ($category->products()->count() > 0) {
             return redirect()
@@ -116,6 +165,11 @@ class AdminCategoryController extends Controller
         }
 
         $category->delete();
+        
+        \Log::info('Category deleted successfully', [
+            'category_id' => $category->id,
+            'category_name' => $category->name
+        ]);
 
         return redirect()
             ->route('admin.categories.index')

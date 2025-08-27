@@ -50,7 +50,7 @@
           >
             <div class="product-image">
               <img 
-                :src="product.images?.[0]?.path || '/images/placeholder.jpg'" 
+                :src="product.images?.[0]?.url || product.hero_image_url || '/images/placeholder.jpg'" 
                 :alt="product.name"
                 class="w-full h-48 object-cover rounded-t-lg"
               >
@@ -145,7 +145,7 @@ export default {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #007DBB 0%, #005A85 100%);
   color: white;
   padding: 6rem 2rem;
   text-align: center;
@@ -171,31 +171,36 @@ export default {
 .cta-button {
   display: inline-block;
   background: white;
-  color: #667eea;
+  color: #007DBB;
   padding: 1rem 2rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1.125rem;
-  transition: transform 0.2s;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 12px rgba(0, 125, 187, 0.15);
 }
 
 .cta-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.5px);
+  box-shadow: 0 6px 20px rgba(0, 125, 187, 0.25);
+  background: #FDFDFD;
 }
 
 /* Categories Section */
 .categories-section {
   padding: 4rem 0;
-  background: #f8fafc;
+  background: #FDFDFD;
 }
 
 .section-title {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   margin-bottom: 3rem;
-  color: #1f2937;
+  color: #111827;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
 .categories-grid {
@@ -220,7 +225,7 @@ export default {
 }
 
 .category-icon {
-  color: #667eea;
+  color: #007DBB;
   margin-bottom: 1rem;
 }
 
@@ -238,7 +243,7 @@ export default {
 }
 
 .category-products-count {
-  color: #667eea;
+  color: #BFD72C;
   font-weight: 500;
 }
 
@@ -291,22 +296,26 @@ export default {
 
 .view-all-button {
   display: inline-block;
-  background: #667eea;
+  background: #007DBB;
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
+  padding: 0.6875rem 1.375rem;
+  border-radius: 1rem;
   text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 2px 8px rgba(0, 125, 187, 0.15);
 }
 
 .view-all-button:hover {
-  background: #5a67d8;
+  background: #005A85;
+  transform: translateY(-0.5px);
+  box-shadow: 0 4px 12px rgba(0, 125, 187, 0.25);
 }
 
 /* Contact Section */
 .contact-section {
-  background: #1f2937;
+  background: #111827;
   color: white;
   padding: 4rem 0;
   text-align: center;
@@ -320,17 +329,21 @@ export default {
 
 .contact-button {
   display: inline-block;
-  background: #667eea;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
+  background: #BFD72C;
+  color: #111827;
+  padding: 0.6875rem 1.375rem;
+  border-radius: 1rem;
   text-decoration: none;
-  font-weight: 600;
-  transition: background 0.2s;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 2px 8px rgba(191, 215, 44, 0.15);
 }
 
 .contact-button:hover {
-  background: #5a67d8;
+  background: #A5C41F;
+  transform: translateY(-0.5px);
+  box-shadow: 0 4px 12px rgba(191, 215, 44, 0.25);
 }
 
 /* Responsive */

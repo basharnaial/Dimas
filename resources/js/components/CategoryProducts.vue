@@ -48,7 +48,7 @@
         >
           <div class="product-image">
             <img 
-              :src="product.images?.[0]?.path || '/images/placeholder.jpg'" 
+              :src="product.images?.[0]?.url || product.hero_image_url || '/images/placeholder.jpg'" 
               :alt="product.name"
               class="w-full h-48 object-cover rounded-t-lg"
             >

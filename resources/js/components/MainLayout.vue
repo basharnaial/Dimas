@@ -1,96 +1,165 @@
 <template>
-  <div class="main-layout">
-    <!-- Header -->
-    <header class="header">
+  <div class="medical-layout">
+    <!-- Professional Medical Header -->
+    <header class="medical-header">
+      <div class="header-backdrop"></div>
       <div class="container">
         <div class="header-content">
-          <!-- Logo -->
-          <div class="logo">
-            <router-link to="/" class="logo-link">
-              <span class="logo-text">ديماس</span>
+          <!-- Premium Medical Logo -->
+          <div class="medical-logo">
+            <router-link to="/" class="logo-container">
+              <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="logo-svg">
+                  <path d="M12 2C13.1 2 14 2.9 14 4V10H20C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14H14V20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20V14H4C2.9 14 2 13.1 2 12C2 10.9 2.9 10 4 10H10V4C10 2.9 10.9 2 12 2Z"/>
+                </svg>
+              </div>
+              <div class="logo-text">
+                <span class="brand-name">ديماس</span>
+                <span class="brand-tagline">الحلول الطبية المتقدمة</span>
+              </div>
             </router-link>
           </div>
 
-          <!-- Navigation -->
-          <nav class="main-nav">
-            <router-link to="/" class="nav-link">الرئيسية</router-link>
-            <router-link to="/products" class="nav-link">المنتجات</router-link>
-            <router-link to="/about" class="nav-link">من نحن</router-link>
-            <router-link to="/contact" class="nav-link">اتصل بنا</router-link>
+          <!-- Professional Navigation -->
+          <nav class="medical-nav">
+            <router-link to="/" class="nav-item">
+              <span>الرئيسية</span>
+            </router-link>
+            <router-link to="/products" class="nav-item">
+              <span>منتجاتنا</span>
+            </router-link>
+            <router-link to="/about" class="nav-item">
+              <span>عن الشركة</span>
+            </router-link>
+            <router-link to="/contact" class="nav-item">
+              <span>تواصل معنا</span>
+            </router-link>
           </nav>
 
-          <!-- Admin Login -->
-          <div class="admin-login">
-            <a href="/login" class="admin-btn">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          <!-- Professional Admin Access -->
+          <div class="header-actions">
+            <a href="/login" class="admin-access">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="admin-icon">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
               </svg>
-              <span>لوحة التحكم</span>
+              <span class="admin-text">نظام الإدارة</span>
             </a>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <button @click="toggleMobileMenu" class="mobile-menu-btn">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            
+            <!-- Mobile Menu Toggle -->
+            <button @click="toggleMobileMenu" class="mobile-toggle">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
             </svg>
           </button>
+          </div>
         </div>
 
-        <!-- Mobile Navigation -->
-        <div v-show="mobileMenuOpen" class="mobile-nav">
-          <router-link to="/" class="mobile-nav-link" @click="closeMobileMenu">الرئيسية</router-link>
-          <router-link to="/products" class="mobile-nav-link" @click="closeMobileMenu">المنتجات</router-link>
-          <router-link to="/about" class="mobile-nav-link" @click="closeMobileMenu">من نحن</router-link>
-          <router-link to="/contact" class="mobile-nav-link" @click="closeMobileMenu">اتصل بنا</router-link>
-          <a href="/login" class="mobile-admin-btn" @click="closeMobileMenu">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        <!-- Mobile Navigation Panel -->
+        <div v-show="mobileMenuOpen" class="mobile-panel">
+          <div class="mobile-nav">
+            <router-link to="/" class="mobile-item" @click="closeMobileMenu">
+              <span>الرئيسية</span>
+            </router-link>
+            <router-link to="/products" class="mobile-item" @click="closeMobileMenu">
+              <span>منتجاتنا</span>
+            </router-link>
+            <router-link to="/about" class="mobile-item" @click="closeMobileMenu">
+              <span>عن الشركة</span>
+            </router-link>
+            <router-link to="/contact" class="mobile-item" @click="closeMobileMenu">
+              <span>تواصل معنا</span>
+            </router-link>
+            <a href="/login" class="mobile-admin" @click="closeMobileMenu">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
-            <span>لوحة التحكم</span>
+              <span>نظام الإدارة</span>
           </a>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- Main Content Area -->
+    <main class="medical-main">
       <router-view />
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-section">
-            <h3 class="footer-title">ديماس</h3>
-            <p class="footer-description">
-              موقع متخصص في تقديم المنتجات والخدمات المميزة لعملائنا الكرام
+            <!-- Apple-Style Clean Footer -->
+        <footer class="medical-footer">
+          <div class="footer-container">
+            <!-- Company Info Section -->
+            <div class="footer-company">
+              <div class="footer-logo">
+                <div class="footer-logo-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C13.1 2 14 2.9 14 4V10H20C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14H14V20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20V14H4C2.9 14 2 13.1 2 12C2 10.9 2.9 10 4 10H10V4C10 2.9 10.9 2 12 2Z"/>
+                  </svg>
+                </div>
+                <div class="footer-brand-text">
+                  <h3 class="footer-brand">ديماس</h3>
+                  <p class="footer-tagline">الحلول الطبية المتقدمة</p>
+                </div>
+              </div>
+              <p class="company-description">
+                نحن شركة رائدة في مجال توفير المعدات والمستلزمات الطبية عالية الجودة للمؤسسات الصحية والمهنيين الطبيين في جميع أنحاء المملكة.
             </p>
           </div>
           
+            <!-- Links Grid -->
+            <div class="footer-links-grid">
+              <!-- Quick Links -->
           <div class="footer-section">
-            <h4 class="footer-subtitle">روابط سريعة</h4>
+                <h4 class="section-title">الصفحات الرئيسية</h4>
             <ul class="footer-links">
               <li><router-link to="/" class="footer-link">الرئيسية</router-link></li>
-              <li><router-link to="/products" class="footer-link">المنتجات</router-link></li>
-              <li><router-link to="/about" class="footer-link">من نحن</router-link></li>
-              <li><router-link to="/contact" class="footer-link">اتصل بنا</router-link></li>
+                  <li><router-link to="/products" class="footer-link">منتجاتنا</router-link></li>
+                  <li><router-link to="/about" class="footer-link">عن الشركة</router-link></li>
+                  <li><router-link to="/contact" class="footer-link">تواصل معنا</router-link></li>
+                </ul>
+              </div>
+              
+              <!-- Product Categories -->
+              <div class="footer-section">
+                <h4 class="section-title">فئات المنتجات</h4>
+                <ul class="footer-links">
+                  <li><router-link to="/category/wound-care" class="footer-link">العناية بالجروح</router-link></li>
+                  <li><router-link to="/category/infection-control" class="footer-link">مكافحة العدوى</router-link></li>
+                  <li><a href="#" class="footer-link">المعدات الجراحية</a></li>
+                  <li><a href="#" class="footer-link">أجهزة التشخيص</a></li>
             </ul>
           </div>
           
+              <!-- Contact Information -->
           <div class="footer-section">
-            <h4 class="footer-subtitle">معلومات التواصل</h4>
+                <h4 class="section-title">معلومات التواصل</h4>
             <div class="contact-info">
-              <p>البريد الإلكتروني: info@dimas.sa</p>
-              <p>الهاتف: +966 50 123 4567</p>
-              <p>العنوان: المملكة العربية السعودية</p>
-            </div>
+                  <div class="contact-item">
+                    <span class="contact-label">البريد الإلكتروني</span>
+                    <span class="contact-value">info@demas-medical.sa</span>
+                  </div>
+                  <div class="contact-item">
+                    <span class="contact-label">الهاتف</span>
+                    <span class="contact-value">+966 11 234 5678</span>
+                  </div>
+                  <div class="contact-item">
+                    <span class="contact-label">العنوان</span>
+                    <span class="contact-value">الرياض، المملكة العربية السعودية</span>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
         
+          <!-- Footer Bottom -->
         <div class="footer-bottom">
-          <p>&copy; 2024 ديماس. جميع الحقوق محفوظة</p>
+            <div class="footer-bottom-content">
+              <p class="copyright">© 2024 ديماس للحلول الطبية. جميع الحقوق محفوظة.</p>
+              <div class="footer-meta">
+                <a href="#" class="meta-link">سياسة الخصوصية</a>
+                <a href="#" class="meta-link">الشروط والأحكام</a>
+                <a href="#" class="meta-link">سياسة الإرجاع</a>
+              </div>
         </div>
       </div>
     </footer>
@@ -117,220 +186,525 @@ export default {
 </script>
 
 <style scoped>
-.main-layout {
+/* Apple-Style Medical Layout */
+.medical-layout {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+}
+
+/* Apple-Style Header */
+.medical-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(253, 253, 253, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.header-backdrop {
+  display: none;
+}
+
+.header-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3rem;
+  gap: var(--spacing-xl);
+  padding: 0 1.375rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Apple-Style Logo */
+.medical-logo {
+  flex-shrink: 0;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-md);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.logo-container:hover {
+  background: rgba(0, 125, 187, 0.04);
+}
+
+.logo-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  background: var(--logo-gray);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.logo-container:hover .logo-icon {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 125, 187, 0.15);
+}
+
+.logo-svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.logo-text {
   display: flex;
   flex-direction: column;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
-/* Header */
-.header {
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 50;
+.brand-tagline {
+  font-size: 0.6875rem;
+  color: var(--gray-500);
+  font-weight: 400;
+  line-height: 1;
+  margin-top: -0.125rem;
 }
 
-.header-content {
+/* Apple-Style Navigation */
+.medical-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 4rem;
+  gap: 0;
 }
 
-.logo-link {
-  text-decoration: none;
-  color: #1f2937;
-}
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #667eea;
-}
-
-.main-nav {
+.nav-item {
+  position: relative;
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  padding: 0.5rem 0.875rem;
+  color: var(--gray-600);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  white-space: nowrap;
 }
 
-.nav-link {
-  color: #6b7280;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
+.nav-item span {
   position: relative;
 }
 
-.nav-link:hover,
-.nav-link.router-link-active {
-  color: #667eea;
+.nav-item:hover {
+  color: var(--gray-900);
+  background: rgba(0, 125, 187, 0.04);
 }
 
-.nav-link.router-link-active::after {
+.nav-item.router-link-active {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.nav-item.router-link-active::after {
   content: '';
   position: absolute;
   bottom: -0.5rem;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #667eea;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.25rem;
+  height: 0.25rem;
+  background: var(--primary);
+  border-radius: 50%;
 }
 
-.admin-btn {
+/* Apple-Style Header Actions */
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #667eea;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  gap: var(--spacing-md);
+}
+
+.admin-access {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 0.4375rem 0.875rem;
+  background: var(--primary);
+  color: var(--white);
   text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s;
+  border-radius: var(--radius-xl);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  white-space: nowrap;
 }
 
-.admin-btn:hover {
-  background: #5a67d8;
+.admin-access:hover {
+  background: var(--primary-dark);
+  transform: translateY(-0.5px);
+  box-shadow: 0 4px 12px rgba(0, 125, 187, 0.15);
 }
 
-.mobile-menu-btn {
+.admin-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.mobile-toggle {
   display: none;
+  padding: 0.5rem;
   background: none;
   border: none;
-  color: #6b7280;
+  color: var(--neutral-500);
   cursor: pointer;
-  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-toggle:hover {
+  background: var(--neutral-100);
+  color: var(--neutral-700);
+}
+
+.mobile-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mobile Navigation Panel */
+.mobile-panel {
+  border-top: 1px solid var(--neutral-100);
+  background: white;
+  padding: 1rem 0;
 }
 
 .mobile-nav {
-  display: none;
-  padding: 1rem 0;
-  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.mobile-nav-link {
-  display: block;
-  padding: 0.75rem 0;
-  color: #6b7280;
+.mobile-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: var(--neutral-600);
   text-decoration: none;
-  border-bottom: 1px solid #f3f4f6;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mobile-nav-link:hover {
-  color: #667eea;
+.mobile-item:hover {
+  background: var(--neutral-50);
+  color: var(--primary-600);
 }
 
-.mobile-admin-btn {
+.mobile-admin {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #667eea;
+  padding: 0.75rem 1rem;
+  background: var(--primary-600);
   color: white;
-  padding: 0.75rem;
-  border-radius: 0.375rem;
   text-decoration: none;
+  border-radius: 0.5rem;
   font-weight: 500;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.mobile-admin svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 /* Main Content */
-.main-content {
+.medical-main {
   flex: 1;
+  position: relative;
 }
 
-/* Footer */
-.footer {
-  background: #1f2937;
-  color: white;
-  padding: 3rem 0 1rem;
+/* Apple-Style Clean Footer */
+.medical-footer {
+  background: var(--surface-secondary);
+  border-top: 0.5px solid var(--gray-200);
   margin-top: auto;
 }
 
-.footer-content {
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-3xl) 1.375rem var(--spacing-2xl);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--spacing-3xl);
+  align-items: start;
 }
 
-.footer-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #667eea;
+/* Company Section */
+.footer-company {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
 }
 
-.footer-description {
-  color: #d1d5db;
-  line-height: 1.6;
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
-.footer-subtitle {
-  font-size: 1.125rem;
+.footer-logo-icon {
+  width: 2rem;
+  height: 2rem;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+}
+
+.footer-logo-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.footer-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  color: var(--gray-900);
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
+.footer-tagline {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin: 0;
+  margin-top: -0.125rem;
+}
+
+.company-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+  font-size: 0.9375rem;
+  max-width: 400px;
+}
+
+/* Links Grid */
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Footer Links */
 .footer-links {
   list-style: none;
   padding: 0;
-}
-
-.footer-links li {
-  margin-bottom: 0.5rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
 .footer-link {
-  color: #d1d5db;
+  color: var(--gray-600);
   text-decoration: none;
-  transition: color 0.2s;
+  font-size: 0.9375rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  line-height: 1.4;
 }
 
 .footer-link:hover {
-  color: #667eea;
+  color: var(--primary);
 }
 
-.contact-info p {
-  color: #d1d5db;
-  margin-bottom: 0.5rem;
+/* Contact Info */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
 }
 
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.contact-label {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-value {
+  font-size: 0.9375rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+/* Footer Bottom */
 .footer-bottom {
-  border-top: 1px solid #374151;
-  padding-top: 1rem;
-  text-align: center;
-  color: #9ca3af;
+  border-top: 0.5px solid var(--gray-200);
+  background: var(--surface-tertiary);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .main-nav {
+.footer-bottom-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) 1.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+}
+
+.copyright {
+  color: var(--gray-500);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.meta-link {
+  color: var(--gray-500);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.meta-link:hover {
+  color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .medical-nav {
     display: none;
   }
   
-  .admin-btn span {
+  .mobile-toggle {
+    display: block;
+  }
+  
+  .admin-text {
     display: none;
   }
   
-  .mobile-menu-btn {
-    display: block;
-  }
-  
-  .mobile-nav {
-    display: block;
-  }
-  
-  .footer-content {
+  .footer-container {
     grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+  
+  .footer-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    height: 4rem;
+  }
+  
+  .brand-name {
+    font-size: 1.25rem;
+  }
+  
+  .footer-container {
+    padding: var(--spacing-2xl) 1rem;
+  }
+  
+  .footer-links-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
     text-align: center;
+  }
+  
+  .footer-company {
+    text-align: center;
+  }
+  
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 1rem;
+  }
+  
+  .footer-meta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-container {
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .brand-tagline {
+    display: none;
+  }
+  
+  .footer-container {
+    padding: var(--spacing-xl) 1rem;
+  }
+  
+  .footer-meta {
+    flex-direction: column;
+    gap: var(--spacing-sm);
   }
 }
 </style>

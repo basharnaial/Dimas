@@ -11,7 +11,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check() && auth()->user()->is_admin;
     }
 
     /**
@@ -27,12 +27,13 @@ class UpdateProductRequest extends FormRequest
             'name' => ['sometimes','string','max:180'],
             'slug' => ['sometimes','alpha_dash','max:190','unique:products,slug,'.$id],
             'sku' => ['sometimes','nullable','string','max:80'],
-            'hero_image' => ['sometimes','nullable','string','max:255'],
+            'hero_image' => ['sometimes','nullable','image','mimes:jpeg,png,jpg,gif,webp','max:10240'],
             'short_description' => ['sometimes','nullable','string','max:1000'],
             'description' => ['sometimes','nullable','string'],
             'specs' => ['sometimes','nullable','array'],
             'meta_title' => ['sometimes','nullable','string','max:160'],
             'meta_description' => ['sometimes','nullable','string','max:500'],
+            'is_active' => ['sometimes','boolean'],
             'images' => ['sometimes','array'],
             'images.*.path' => ['required_with:images','string'],
             'images.*.sort_order' => ['nullable','integer','min:0'],

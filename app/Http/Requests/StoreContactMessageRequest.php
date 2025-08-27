@@ -11,7 +11,7 @@ class StoreContactMessageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Public contact form
     }
 
     /**
@@ -27,7 +27,21 @@ class StoreContactMessageRequest extends FormRequest
             'phone' => ['nullable','string','max:30'],
             'message' => ['required','string','max:5000'],
             'consent' => ['boolean'],
+            'trap_field' => ['nullable', 'max:0'], // Honeypot field - must be empty
         ];
+    }
+
+    /**
+     * Get the validated data from the request.
+     */
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated($key, $default);
+        
+        // Remove honeypot field from validated data
+        unset($validated['trap_field']);
+        
+        return $validated;
     }
     
 }

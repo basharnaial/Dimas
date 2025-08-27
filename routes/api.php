@@ -24,7 +24,7 @@ Route::prefix('v1')->group(function () {
     Route::get('products', [ProductController::class, 'index']);
     Route::get('products/{product:slug}', [ProductController::class, 'show']);
 
-    Route::post('contact', [ContactController::class, 'store']);
+    Route::post('contact', [ContactController::class, 'store'])->middleware('throttle:5,1');
 
     // Admin endpoints (إدارية - محمية)
     Route::middleware(['auth:sanctum', 'can:manage-catalog'])->group(function () {

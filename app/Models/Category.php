@@ -7,7 +7,14 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    protected $fillable = ['name','slug','meta_title','meta_description'];
+    protected $fillable = [
+        'name', 'slug', 'description', 'is_active', 'sort_order',
+        'meta_title', 'meta_description'
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     public function products()
     {
@@ -23,6 +30,13 @@ class Category extends Model
     {
         static::creating(function ($cat) {
             $cat->slug ??= Str::slug($cat->name);
+        });
+        
+        static::updating(function ($cat) {
+            // Only update slug if it's not explicitly set in the update
+            if ($cat->isDirty('name') && !$cat->isDirty('slug')) {
+                $cat->slug = Str::slug($cat->name);
+            }
         });
     }
 }

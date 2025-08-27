@@ -13,11 +13,12 @@ class Product extends Model
     protected $fillable = [
         'category_id','name','slug','sku','hero_image',
         'short_description','description','specs',
-        'meta_title','meta_description'
+        'meta_title','meta_description','is_active'
     ];
 
     protected $casts = [
         'specs' => 'array',
+        'is_active' => 'boolean',
     ];
 
     // نحن في مودل المنتج

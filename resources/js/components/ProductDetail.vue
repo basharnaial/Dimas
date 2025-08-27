@@ -19,7 +19,7 @@
         <div class="product-images">
           <div class="main-image">
             <img 
-              :src="selectedImage || product.images?.[0]?.path || '/images/placeholder.jpg'" 
+              :src="selectedImage || product.images?.[0]?.url || product.hero_image_url || '/images/placeholder.jpg'" 
               :alt="product.name"
               class="w-full h-96 object-cover rounded-lg"
             >
@@ -28,10 +28,10 @@
             <img 
               v-for="(image, index) in product.images" 
               :key="index"
-              :src="image.path" 
+              :src="image.url" 
               :alt="`${product.name} - صورة ${index + 1}`"
-              @click="selectedImage = image.path"
-              :class="['thumbnail', { active: selectedImage === image.path }]"
+              @click="selectedImage = image.url"
+              :class="['thumbnail', { active: selectedImage === image.url }]"
             >
           </div>
         </div>
@@ -76,7 +76,7 @@
             class="related-card"
           >
             <img 
-              :src="related.images?.[0]?.path || '/images/placeholder.jpg'" 
+              :src="related.images?.[0]?.url || related.hero_image_url || '/images/placeholder.jpg'" 
               :alt="related.name"
               class="w-full h-32 object-cover rounded"
             >
@@ -124,7 +124,7 @@ export default {
         this.product = data.data || data
         
         if (this.product.images && this.product.images.length > 0) {
-          this.selectedImage = this.product.images[0].path
+          this.selectedImage = this.product.images[0].url
         }
         
         // Load related products from same category

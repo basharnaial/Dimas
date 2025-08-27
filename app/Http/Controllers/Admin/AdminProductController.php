@@ -52,7 +52,7 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('is_active', true)->orderBy('name')->get();
         return view('admin.products.create', compact('categories'));
     }
 
@@ -62,6 +62,14 @@ class AdminProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $validated = $request->validated();
+
+        // Handle hero image upload
+        if ($request->hasFile('hero_image')) {
+            $validated['hero_image'] = $request->file('hero_image')->store('products', 'public');
+        }
+
+        // Handle checkbox - if not present in request, it means unchecked (false)
+        $validated['is_active'] = $request->has('is_active') ? true : false;
 
         $product = Product::create($validated);
 
@@ -88,7 +96,7 @@ class AdminProductController extends Controller
     public function edit(Product $product)
     {
         $product->load(['category', 'images']);
-        $categories = Category::all();
+        $categories = Category::where('is_active', true)->orderBy('name')->get();
         
         return view('admin.products.edit', compact('product', 'categories'));
     }
@@ -99,6 +107,18 @@ class AdminProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $validated = $request->validated();
+
+        // Handle hero image upload
+        if ($request->hasFile('hero_image')) {
+            // Delete old hero image if exists
+            if ($product->hero_image) {
+                Storage::disk('public')->delete($product->hero_image);
+            }
+            $validated['hero_image'] = $request->file('hero_image')->store('products', 'public');
+        }
+
+        // Handle checkbox - if not present in request, it means unchecked (false)
+        $validated['is_active'] = $request->has('is_active') ? true : false;
 
         $product->update($validated);
 
@@ -136,6 +156,11 @@ class AdminProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // Delete hero image
+        if ($product->hero_image) {
+            Storage::disk('public')->delete($product->hero_image);
+        }
+        
         // Delete associated images
         foreach ($product->images as $image) {
             Storage::disk('public')->delete($image->path);

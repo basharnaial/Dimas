@@ -1,3 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Apple-Style Medical Color Palette */
+  --primary: #007DBB;
+  --primary-light: #1A8FCC;
+  --primary-lighter: #4DA7D9;
+  --primary-dark: #005A85;
+  --primary-darker: #003D5C;
+  
+  --secondary: #BFD72C;
+  --secondary-light: #CCE04A;
+  --secondary-dark: #A5C41F;
+  
+  --logo-gray: #FDFDFD;
+  
+  /* Apple-Style Neutrals */
+  --white: #ffffff;
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  
+  /* Apple-Style Semantic Colors */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #ef4444;
+  --info: var(--primary);
+  
+  /* Apple-Style Surfaces */
+  --surface-primary: #ffffff;
+  --surface-secondary: #fafafa;
+  --surface-tertiary: #f5f5f5;
+  --surface-elevated: #ffffff;
+  
+  /* Apple-Style Typography */
+  --font-display: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-text: 'SF Pro Text', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Apple-Style Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Apple-Style Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  
+  /* Apple-Style Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-text);
+  line-height: 1.47059;
+  color: var(--gray-800);
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Apple-Style Typography Scale */
+.text-display-xl { 
+  font-family: var(--font-display);
+  font-size: 5rem; 
+  line-height: 1.05; 
+  font-weight: 700; 
+  letter-spacing: -0.03em;
+}
+
+.text-display-lg { 
+  font-family: var(--font-display);
+  font-size: 4rem; 
+  line-height: 1.05; 
+  font-weight: 700; 
+  letter-spacing: -0.025em;
+}
+
+.text-display-md { 
+  font-family: var(--font-display);
+  font-size: 3.5rem; 
+  line-height: 1.07; 
+  font-weight: 600; 
+  letter-spacing: -0.02em;
+}
+
+.text-display-sm { 
+  font-family: var(--font-display);
+  font-size: 2.5rem; 
+  line-height: 1.1; 
+  font-weight: 600; 
+  letter-spacing: -0.015em;
+}
+
+.text-xl { 
+  font-size: 1.3125rem; 
+  line-height: 1.38; 
+  font-weight: 400; 
+  letter-spacing: -0.01em;
+}
+
+.text-lg { 
+  font-size: 1.1875rem; 
+  line-height: 1.42; 
+  font-weight: 400; 
+}
+
+.text-base { 
+  font-size: 1.0625rem; 
+  line-height: 1.47; 
+  font-weight: 400; 
+}
+
+.text-sm { 
+  font-size: 0.9375rem; 
+  line-height: 1.43; 
+  font-weight: 400; 
+}
+
+.text-xs { 
+  font-size: 0.8125rem; 
+  line-height: 1.38; 
+  font-weight: 400; 
+}
+
+/* Apple-Style Container System */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.375rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* Elegant Shadows */
+.shadow-soft { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05); }
+.shadow-medium { box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05); }
+.shadow-large { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05); }
+.shadow-xl { box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08); }
+
+/* Professional Animations */
+.transition-smooth { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.transition-fast { transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Focus States for Accessibility */
+.focus-ring:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Apple-Style Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: 0.6875rem 1.375rem;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  border-radius: var(--radius-xl);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  min-height: 2.75rem;
+  white-space: nowrap;
+  font-family: var(--font-text);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-0.5px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: var(--surface-primary);
+  color: var(--primary);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-secondary);
+  border-color: var(--gray-300);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-0.5px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--primary);
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-ghost:hover {
+  background: var(--gray-50);
+}
+
+/* Apple-Style Cards */
+.card {
+  background: var(--surface-primary);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-100);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(191, 215, 44, 0.02) 0%, rgba(0, 125, 187, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+  border-color: var(--gray-200);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Apple-Style Form Elements */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  font-size: 1.0625rem;
+  background: var(--surface-primary);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: var(--font-text);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 125, 187, 0.1);
+}
+
+/* Apple-Style Medical Icons */
+.medical-icon {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.75rem;
+  background: rgba(0, 125, 187, 0.06);
+  border-radius: var(--radius-xl);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.medical-icon:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 125, 187, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .text-display-xl { font-size: 3.5rem; }
+  .text-display-lg { font-size: 2.75rem; }
+  .text-display-md { font-size: 2.25rem; }
+}
+
+@media (max-width: 768px) {
+  .text-display-xl { font-size: 2.5rem; }
+  .text-display-lg { font-size: 2rem; }
+  .text-display-md { font-size: 1.75rem; }
+  .container { padding: 0 1rem; }
+  .card { padding: 1rem; }
+}
+
+/* Force Apple-Style Medical Colors */
+* {
+  --primary-color: #007DBB !important;
+  --secondary-color: #BFD72C !important;
+  --logo-gray-color: #FDFDFD !important;
+}
+
+/* Override any existing purple/violet colors */
+.hero-section,
+[style*="background: linear-gradient(135deg, #667eea"],
+[style*="background-color: #667eea"],
+[class*="bg-purple"],
+[class*="bg-violet"],
+.text-purple-600,
+.text-violet-600 {
+  background: linear-gradient(135deg, #007DBB 0%, #005A85 100%) !important;
+  color: white !important;
+}
+
+/* Ensure buttons use correct colors */
+.btn, button, [role="button"] {
+  --tw-bg-opacity: 1;
+  background-color: var(--primary) !important;
+}
+
+/* Ensure text colors are correct */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--gray-900) !important;
+}
+
+/* Ensure icons use primary color */
+svg, .icon {
+  color: var(--primary) !important;
+}
