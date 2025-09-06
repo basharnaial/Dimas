@@ -214,8 +214,8 @@
                     </div>
                 </div>
 
-                <!-- Product Specifications -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                <!-- Product Specifications - HIDDEN -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100" style="display: none;">
                     <div class="px-6 py-4 border-b border-gray-100">
                         <h2 class="text-lg font-semibold text-gray-900">مواصفات المنتج</h2>
                     </div>
@@ -266,6 +266,141 @@
                             </button>
                             <button type="button" id="remove-spec" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors" style="{{ $specCount <= 1 ? 'display: none;' : '' }}">
                                 حذف المواصفة الأخيرة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Option Tables -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <div class="px-6 py-4 border-b border-gray-100">
+                        <h2 class="text-lg font-semibold text-gray-900">جداول المنتج الديناميكية</h2>
+                        <p class="text-sm text-gray-600 mt-1">أضف جداول مخصصة مثل معلومات الطلب أو الأحجام المتاحة</p>
+                    </div>
+
+                    <div class="p-6">
+                        <div id="option-tables-container">
+                            @php
+                                $optionTables = old('option_tables', $product->option_tables ?? []);
+                                $tableCount = 0;
+                            @endphp
+                            
+                            @forelse($optionTables as $tableIndex => $table)
+                                <div class="option-table border border-gray-200 rounded-lg p-4 mb-4" data-table-index="{{ $tableIndex }}">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h4 class="text-md font-medium text-gray-800">جدول #{{ $tableIndex + 1 }}</h4>
+                                        <button type="button" class="text-red-600 hover:text-red-800" onclick="removeOptionTable(this)">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Table Title - Arabic -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (عربي)</label>
+                                        <input type="text" name="option_tables[{{ $tableIndex }}][title]" 
+                                               value="{{ $table['title'] ?? '' }}"
+                                               placeholder="مثل: معلومات الطلب" 
+                                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+
+                                    <!-- Table Title - English -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (إنجليزي)</label>
+                                        <input type="text" name="option_tables[{{ $tableIndex }}][title_en]" 
+                                               value="{{ $table['title_en'] ?? '' }}"
+                                               placeholder="e.g: Ordering Information" 
+                                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+
+                                    <!-- Table Description - Arabic -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">وصف الجدول (عربي)</label>
+                                        <textarea name="option_tables[{{ $tableIndex }}][description]" 
+                                                  rows="2"
+                                                  placeholder="وصف مختصر عن محتوى الجدول"
+                                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">{{ $table['description'] ?? '' }}</textarea>
+                                    </div>
+
+                                    <!-- Table Description - English -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">وصف الجدول (إنجليزي)</label>
+                                        <textarea name="option_tables[{{ $tableIndex }}][description_en]" 
+                                                  rows="2"
+                                                  placeholder="Brief description about table content"
+                                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">{{ $table['description_en'] ?? '' }}</textarea>
+                                    </div>
+                                    
+                                    <!-- Column Count -->
+                                    <div class="mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">عدد الأعمدة</label>
+                                        <input type="number" min="1" max="10" value="{{ count($table['columns'] ?? []) ?: 3 }}" 
+                                               class="column-count-input w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                                               onchange="updateTableColumns(this, {{ $tableIndex }})">
+                                    </div>
+                                    
+                                    <!-- Columns - Arabic -->
+                                    <div class="columns-container mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">أسماء الأعمدة (عربي)</label>
+                                        <div class="columns-grid grid grid-cols-1 md:grid-cols-{{ min(count($table['columns'] ?? []) ?: 3, 4) }} gap-3">
+                                            @foreach(($table['columns'] ?? []) as $colIndex => $column)
+                                                <input type="text" name="option_tables[{{ $tableIndex }}][columns][{{ $colIndex }}]" 
+                                                       value="{{ $column }}"
+                                                       placeholder="العمود {{ $colIndex + 1 }}" 
+                                                       class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+                                    <!-- Columns - English -->
+                                    <div class="columns-container-en mb-4">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">أسماء الأعمدة (إنجليزي)</label>
+                                        <div class="columns-grid-en grid grid-cols-1 md:grid-cols-{{ min(count($table['columns_en'] ?? $table['columns'] ?? []) ?: 3, 4) }} gap-3">
+                                            @foreach(($table['columns_en'] ?? array_fill(0, count($table['columns'] ?? []), '')) as $colIndex => $column)
+                                                <input type="text" name="option_tables[{{ $tableIndex }}][columns_en][{{ $colIndex }}]" 
+                                                       value="{{ $column }}"
+                                                       placeholder="Column {{ $colIndex + 1 }}" 
+                                                       class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Rows -->
+                                    <div class="rows-container">
+                                        <div class="flex items-center justify-between mb-2">
+                                            <label class="block text-sm font-medium text-gray-700">صفوف البيانات</label>
+                                            <div>
+                                                <button type="button" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded" onclick="addTableRow(this, {{ $tableIndex }})">إضافة صف</button>
+                                                <button type="button" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded" onclick="removeTableRow(this, {{ $tableIndex }})">حذف صف</button>
+                                            </div>
+                                        </div>
+                                        <div class="rows-grid">
+                                            @foreach(($table['rows'] ?? []) as $rowIndex => $row)
+                                                <div class="row-item grid grid-cols-1 md:grid-cols-{{ min(count($table['columns'] ?? []) ?: 3, 4) }} gap-3 mb-2">
+                                                    @foreach($row as $cellIndex => $cellValue)
+                                                        <input type="text" name="option_tables[{{ $tableIndex }}][rows][{{ $rowIndex }}][{{ $cellIndex }}]" 
+                                                               value="{{ $cellValue }}"
+                                                               placeholder="قيمة العمود {{ $cellIndex + 1 }}" 
+                                                               class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                @php $tableCount = $tableIndex + 1; @endphp
+                            @empty
+                                <!-- No tables yet -->
+                            @endforelse
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button type="button" id="add-option-table" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                إضافة جدول جديد
+                            </button>
+                            <button type="button" id="remove-option-table" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors" style="{{ count($optionTables) > 0 ? '' : 'display: none;' }}">
+                                حذف الجدول الأخير
                             </button>
                         </div>
                     </div>
@@ -325,19 +460,32 @@
                                         class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors">
                                     حفظ التعديلات
                                 </button>
-                                <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="inline" 
-                                      onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
-                                        حذف المنتج
-                                    </button>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
+            
+            <!-- Delete Form (Outside the update form) -->
+            <div class="mt-6 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-red-600">منطقة الخطر</h3>
+                        <p class="text-sm text-gray-600 mt-1">حذف المنتج عملية لا يمكن التراجع عنها</p>
+                        @if($product->images->count() > 0)
+                            <p class="text-sm text-yellow-600 mt-1">⚠️ سيتم حذف جميع الصور المرتبطة بالمنتج ({{ $product->images->count() }} صورة)</p>
+                        @endif
+                    </div>
+                    <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="inline" 
+                          onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟ سيتم حذف جميع الصور المرتبطة به أيضاً.')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
+                            حذف المنتج
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -422,5 +570,207 @@
                 });
             }
         }
+
+        // Option Tables Management
+        let optionTableCount = {{ count($optionTables) }};
+
+        // Add option table
+        document.getElementById('add-option-table').addEventListener('click', function() {
+            const container = document.getElementById('option-tables-container');
+            const tableDiv = document.createElement('div');
+            tableDiv.className = 'option-table border border-gray-200 rounded-lg p-4 mb-4';
+            tableDiv.setAttribute('data-table-index', optionTableCount);
+            
+            tableDiv.innerHTML = `
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-md font-medium text-gray-800">جدول #${optionTableCount + 1}</h4>
+                    <button type="button" class="text-red-600 hover:text-red-800" onclick="removeOptionTable(this)">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Table Title - Arabic -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (عربي)</label>
+                    <input type="text" name="option_tables[${optionTableCount}][title]" 
+                           placeholder="مثل: معلومات الطلب" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <!-- Table Title - English -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (إنجليزي)</label>
+                    <input type="text" name="option_tables[${optionTableCount}][title_en]" 
+                           placeholder="e.g: Ordering Information" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Table Description - Arabic -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">وصف الجدول (عربي)</label>
+                    <textarea name="option_tables[${optionTableCount}][description]" 
+                              placeholder="وصف مختصر عن محتوى الجدول"
+                              rows="2"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+
+                <!-- Table Description - English -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">وصف الجدول (إنجليزي)</label>
+                    <textarea name="option_tables[${optionTableCount}][description_en]" 
+                              placeholder="Brief description about table content"
+                              rows="2"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+                
+                <!-- Column Count -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عدد الأعمدة</label>
+                    <input type="number" min="1" max="10" value="3" 
+                           class="column-count-input w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                           onchange="updateTableColumns(this, ${optionTableCount})">
+                </div>
+                
+                <!-- Columns - Arabic -->
+                <div class="columns-container mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">أسماء الأعمدة (عربي)</label>
+                    <div class="columns-grid grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input type="text" name="option_tables[${optionTableCount}][columns][0]" placeholder="العمود الأول" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns][1]" placeholder="العمود الثاني" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns][2]" placeholder="العمود الثالث" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <!-- Columns - English -->
+                <div class="columns-container-en mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">أسماء الأعمدة (إنجليزي)</label>
+                    <div class="columns-grid-en grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input type="text" name="option_tables[${optionTableCount}][columns_en][0]" placeholder="First Column" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns_en][1]" placeholder="Second Column" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns_en][2]" placeholder="Third Column" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <!-- Rows -->
+                <div class="rows-container">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-sm font-medium text-gray-700">صفوف البيانات</label>
+                        <div>
+                            <button type="button" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded" onclick="addTableRow(this, ${optionTableCount})">إضافة صف</button>
+                            <button type="button" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded" onclick="removeTableRow(this, ${optionTableCount})">حذف صف</button>
+                        </div>
+                    </div>
+                    <div class="rows-grid">
+                        <div class="row-item grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
+                            <input type="text" name="option_tables[${optionTableCount}][rows][0][0]" placeholder="قيمة العمود الأول" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <input type="text" name="option_tables[${optionTableCount}][rows][0][1]" placeholder="قيمة العمود الثاني" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <input type="text" name="option_tables[${optionTableCount}][rows][0][2]" placeholder="قيمة العمود الثالث" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(tableDiv);
+            optionTableCount++;
+            
+            // Show remove button if more than one table
+            document.getElementById('remove-option-table').style.display = 'block';
+        });
+
+        // Remove option table
+        document.getElementById('remove-option-table').addEventListener('click', function() {
+            const container = document.getElementById('option-tables-container');
+            const tables = container.querySelectorAll('.option-table');
+            if (tables.length > 0) {
+                container.removeChild(tables[tables.length - 1]);
+                optionTableCount--;
+            }
+            
+            // Hide remove button if no tables left
+            if (container.querySelectorAll('.option-table').length === 0) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Helper functions for table management
+        window.removeOptionTable = function(button) {
+            const tableDiv = button.closest('.option-table');
+            tableDiv.remove();
+            
+            // Hide remove button if no tables left
+            const container = document.getElementById('option-tables-container');
+            if (container.querySelectorAll('.option-table').length === 0) {
+                document.getElementById('remove-option-table').style.display = 'none';
+            }
+        };
+
+        window.updateTableColumns = function(input, tableIndex) {
+            const columnCount = parseInt(input.value);
+            const tableDiv = input.closest('.option-table');
+            const columnsGrid = tableDiv.querySelector('.columns-grid');
+            const rowsContainer = tableDiv.querySelector('.rows-grid');
+            
+            // Update columns
+            columnsGrid.innerHTML = '';
+            columnsGrid.className = `columns-grid grid grid-cols-1 md:grid-cols-${Math.min(columnCount, 4)} gap-3`;
+            
+            for (let i = 0; i < columnCount; i++) {
+                const columnInput = document.createElement('input');
+                columnInput.type = 'text';
+                columnInput.name = `option_tables[${tableIndex}][columns][${i}]`;
+                columnInput.placeholder = `العمود ${i + 1}`;
+                columnInput.className = 'px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500';
+                columnsGrid.appendChild(columnInput);
+            }
+            
+            // Update existing rows
+            const rows = rowsContainer.querySelectorAll('.row-item');
+            rows.forEach((row, rowIndex) => {
+                row.innerHTML = '';
+                row.className = `row-item grid grid-cols-1 md:grid-cols-${Math.min(columnCount, 4)} gap-3 mb-2`;
+                
+                for (let i = 0; i < columnCount; i++) {
+                    const cellInput = document.createElement('input');
+                    cellInput.type = 'text';
+                    cellInput.name = `option_tables[${tableIndex}][rows][${rowIndex}][${i}]`;
+                    cellInput.placeholder = `قيمة العمود ${i + 1}`;
+                    cellInput.className = 'px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500';
+                    row.appendChild(cellInput);
+                }
+            });
+        };
+
+        window.addTableRow = function(button, tableIndex) {
+            const tableDiv = button.closest('.option-table');
+            const rowsGrid = tableDiv.querySelector('.rows-grid');
+            const columnCount = parseInt(tableDiv.querySelector('.column-count-input').value);
+            const currentRowCount = rowsGrid.querySelectorAll('.row-item').length;
+            
+            const rowDiv = document.createElement('div');
+            rowDiv.className = `row-item grid grid-cols-1 md:grid-cols-${Math.min(columnCount, 4)} gap-3 mb-2`;
+            
+            for (let i = 0; i < columnCount; i++) {
+                const cellInput = document.createElement('input');
+                cellInput.type = 'text';
+                cellInput.name = `option_tables[${tableIndex}][rows][${currentRowCount}][${i}]`;
+                cellInput.placeholder = `قيمة العمود ${i + 1}`;
+                cellInput.className = 'px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500';
+                rowDiv.appendChild(cellInput);
+            }
+            
+            rowsGrid.appendChild(rowDiv);
+        };
+
+        window.removeTableRow = function(button, tableIndex) {
+            const tableDiv = button.closest('.option-table');
+            const rowsGrid = tableDiv.querySelector('.rows-grid');
+            const rows = rowsGrid.querySelectorAll('.row-item');
+            
+            if (rows.length > 1) {
+                rowsGrid.removeChild(rows[rows.length - 1]);
+            }
+        };
     </script>
 </x-admin-layout>

@@ -24,28 +24,16 @@ class UpdateCategoryRequest extends FormRequest
         $id = $this->route('category')?->id;
         return [
             'name' => ['sometimes','string','max:150'],
-            /**
-             * 🚨 قاعدة مهمة جداً:
-             * 
-             * 'unique:categories,slug,'.$id
-             * 
-             * �� يتحقق من أن slug فريد، لكن يستثني الفئة الحالية
-             * 
-             * ❌ بدون استثناء: خطأ "slug مستخدم مسبقاً" عند التحديث
-             * ✅ مع استثناء: يمكن تحديث الفئة بدون تغيير slug
-             * 
-             * 💡 مثال: فئة "electronics" يمكن تحديثها بدون تغيير slug
-             * 
-                        *  * 📝 Example:
-            * - Category ID 5 has slug "electronics"
-            * - Update same category: "electronics" is allowed ✅
-            * - Update different category: "electronics" is blocked ❌
-            * 
-            * 🚨 NEVER FORGET: Always exclude current record ID in update requests!
-         */
+            'name_en' => ['sometimes','nullable','string','max:150'],
             'slug' => ['sometimes','alpha_dash','max:160','unique:categories,slug,'.$id],
+            'description' => ['sometimes','nullable','string','max:1000'],
+            'description_en' => ['sometimes','nullable','string','max:1000'],
             'meta_title' => ['sometimes','nullable','string','max:160'],
+            'meta_title_en' => ['sometimes','nullable','string','max:160'],
             'meta_description' => ['sometimes','nullable','string','max:500'],
+            'meta_description_en' => ['sometimes','nullable','string','max:500'],
+            'is_active' => ['sometimes','boolean'],
+            'sort_order' => ['sometimes','integer','min:0'],
         ];
     }
     

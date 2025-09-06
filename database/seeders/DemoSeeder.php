@@ -35,170 +35,182 @@ class DemoSeeder extends Seeder
         // Create categories
         $woundCare = Category::create([
             'name' => 'العناية بالجروح',
+            'name_en' => 'Wound Care',
             'slug' => 'wound-care',
-            'description' => 'منتجات العناية بالجروح والضمادات الطبية',
+            'description' => 'منتجات العناية بالجروح والضمادات الطبية المتقدمة للاستخدام في المؤسسات الصحية',
+            'description_en' => 'Advanced wound care products and medical dressings for healthcare institutions',
             'meta_title' => 'منتجات العناية بالجروح - ديماس',
+            'meta_title_en' => 'Wound Care Products - Demas',
             'meta_description' => 'منتجات احترافية للعناية بالجروح للمؤسسات الصحية والمهنيين الطبيين',
+            'meta_description_en' => 'Professional wound care products for healthcare institutions and medical professionals',
             'is_active' => true,
         ]);
 
         $infectionControl = Category::create([
-            'name' => 'مكافحة العدوى',
-            'slug' => 'infection-control',
-            'description' => 'منتجات التعقيم ومكافحة العدوى',
-            'meta_title' => 'حلول مكافحة العدوى - ديماس',
-            'meta_description' => 'منتجات متقدمة لمكافحة العدوى للحفاظ على البيئات المعقمة في الأماكن الطبية',
+            'name' => 'الوقاية من العدوى والعناية بالبشرة',
+            'name_en' => 'Infection Prevention and Skin Care Wipes',
+            'slug' => 'infection-prevention-skin-care',
+            'description' => 'منتجات التعقيم ومكافحة العدوى والعناية بالبشرة للمؤسسات الصحية',
+            'description_en' => 'Infection prevention, disinfection and skin care products for healthcare facilities',
+            'meta_title' => 'حلول الوقاية من العدوى والعناية بالبشرة - ديماس',
+            'meta_title_en' => 'Infection Prevention & Skin Care Solutions - Demas',
+            'meta_description' => 'منتجات متقدمة للوقاية من العدوى والعناية بالبشرة للحفاظ على البيئات المعقمة',
+            'meta_description_en' => 'Advanced infection prevention and skin care products for maintaining sterile environments',
             'is_active' => true,
         ]);
 
-        // Create products for Wound Care
+        // Create products for Infection Prevention and Skin Care
         $product1 = Product::create([
-            'category_id' => $woundCare->id,
-            'name' => 'Advanced Wound Dressing Kit',
-            'slug' => 'advanced-wound-dressing-kit',
-            'sku' => 'WC-001',
+            'category_id' => $infectionControl->id,
+            'name' => 'ECO Protect Universal Antimicrobial Wipes (2% Chlorhexidine Gluconate)',
+            'name_en' => 'ECO Protect Universal Antimicrobial Wipes (2% Chlorhexidine Gluconate)',
+            'slug' => 'eco-protect-antimicrobial-wipes',
+            'sku' => 'ECP-CHG2',
             'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Complete wound dressing kit with sterile components for professional wound care.',
-            'description' => 'This comprehensive wound dressing kit includes sterile gauze pads, adhesive bandages, antiseptic wipes, and medical tape. Designed for healthcare professionals to provide optimal wound care in clinical settings.',
+            'short_description' => 'مناديل مطهِّرة تُستخدم لإزالة التلوث وتقليل الحمل الميكروبي، بصيغة مضادّة للميكروبات تمنح فعالية مبيدة متبقية، فعّالة ضد الجراثيم موجبة وسالبة الغرام، وتساعد على إزالة الأوساخ بوجود عوامل تنظيف سطحية. صيغة 2% كلورهِكسيدين جلوكونات، بدون شطف، وجرعة متجانسة وسهلة الاستخدام.',
+            'short_description_en' => 'Disinfectant wipes used to decontaminate and reduce microbial load. The active antimicrobial formula provides residual bactericidal activity, effective against Gram positive and Gram negative organisms, and helps remove dirt with cleansing/surface active agents. 2% Chlorhexidine Gluconate, rinse free, with uniform dosage and convenient use.',
+            'description' => 'فعالية مستمرة مضادّة للميكروبات (Residual protection)، مع ادعاء قتل 99.99% من الجراثيم. فعّالة ضد MRSA و VRE وفق المعروض. صيغة 2% Chlorhexidine Gluconate ومعتمدة FDA كما هو مذكور في المادة. بدون شطف وتتلاءم مع انحناءات الجسم (سهولة الاستخدام). ادعاء حماية متبقية حتى 8 ساعات. يقلّل الاستحمام اليومي بالكلورهيكسيدين العدوى المكتسبة بالمستشفيات بنسبة 70%. موصى به من الأطباء والممرضين.',
+            'description_en' => 'Persistent anti microbial protection with a 99.99% germ kill claim. Effective against MRSA and VRE (as shown). 2% Chlorhexidine Gluconate formula, FDA approved (per material). Rinse free; comfortably conforms to body curves. Up to 8 hours residual protection. Daily bathing with chlorhexidine reduces HAIs by 70%. Recommended by doctors & nurses.',
             'specs' => [
-                'size' => 'Standard Kit',
-                'sterility' => 'Sterile',
-                'components' => '15 pieces',
-                'shelf_life' => '3 years'
+                'active_ingredient' => '2% Chlorhexidine Gluconate',
+                'effectiveness' => '99.99% germ kill',
+                'protection_duration' => 'Up to 8 hours residual protection',
+                'fda_approved' => 'Yes',
+                'rinse_free' => 'Yes'
             ],
-            'meta_title' => 'Advanced Wound Dressing Kit - Professional Medical Supplies',
-            'meta_description' => 'Professional wound dressing kit with sterile components for optimal wound care in healthcare settings.',
+            'meta_title' => 'مناديل ECO Protect المطهِّرة 2% كلورهيكسيدين (بدون شطف)',
+            'meta_title_en' => 'ECO Protect Antimicrobial Wipes – 2% Chlorhexidine (Rinse Free)',
+            'meta_description' => 'مناديل مطهِّرة بصيغة 2% كلورهيكسيدين، فعالية مبيدة متبقية وقتل 99.99% من الجراثيم، فعّالة ضد Gram+/Gram ، مناسبة للاستخدام السريري.',
+            'meta_description_en' => 'Disinfectant wipes with 2% Chlorhexidine; residual protection and 99.99% germ kill; effective against Gram+/Gram  organisms; convenient, rinse free use.',
         ]);
 
         $product2 = Product::create([
-            'category_id' => $woundCare->id,
-            'name' => 'Hydrocolloid Wound Patches',
-            'slug' => 'hydrocolloid-wound-patches',
-            'sku' => 'WC-002',
+            'category_id' => $infectionControl->id,
+            'name' => 'MoM n PoP – مناديل العناية بالبشرة للبالغين',
+            'name_en' => 'MoM n PoP – Adult Skincare Wipes',
+            'slug' => 'mom-pop-adult-skincare-wipes',
+            'sku' => 'MNP-AD20',
             'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Self-adhesive hydrocolloid patches for moist wound healing.',
-            'description' => 'These hydrocolloid wound patches provide optimal moist wound healing environment. Self-adhesive and waterproof design makes them ideal for various wound types.',
+            'short_description' => 'مناديل مبللة ناعمة وكبيرة الحجم، مصممة للاستحمام والعناية بالبشرة للبالغين، تساعد على الترطيب، التنظيف والحماية من الطفح الجلدي الناتج عن الحفاضات.',
+            'short_description_en' => 'Large, soft wipes for adult skin care and bathing. Provide 3-in-1 action: moisturize, clean, and protect, especially in diaper care routines.',
+            'description' => 'مناديل MoM n PoP تم تطويرها خصيصًا للعناية بالبشرة الحساسة للبالغين، وتحتوي على تركيبة مهدئة تشمل الألوفيرا، فيتامين E، BZK، والسيليكون. تعمل على ترطيب البشرة وتنظيفها وقتل البكتيريا دون الحاجة للشطف. ناعمة جدًا لتفادي التهيجات وتساعد على الوقاية من الطفح الجلدي. مثالية للمرضى كبار السن أو أصحاب الأمراض المناعية.',
+            'description_en' => 'MoM n PoP wipes are developed for sensitive adult skin, formulated with Aloe Vera, Vitamin E, BZK, and silicon agents. They offer bactericidal action while gently cleansing and moisturizing the skin. No rinse required. Super soft cellulose-based wipes reduce skin tearing. Ideal for elderly or immunocompromised patients.',
             'specs' => [
-                'material' => 'Hydrocolloid',
-                'sizes' => '5cm x 5cm, 10cm x 10cm',
-                'waterproof' => 'Yes',
-                'adhesion' => 'Self-adhesive'
+                'ingredients' => 'Aloe Vera, Vitamin E, BZK, Silicon',
+                'action' => '3-in-1: Moisturize, Clean, Protect',
+                'material' => 'Super soft cellulose',
+                'rinse_required' => 'No',
+                'target_use' => 'Adult diaper care and bathing'
             ],
-            'meta_title' => 'Hydrocolloid Wound Patches - Moist Wound Healing',
-            'meta_description' => 'Self-adhesive hydrocolloid patches for optimal moist wound healing environment.',
+            'option_tables' => [
+                [
+                    'title' => 'خيارات التعبئة المتاحة',
+                    'title_en' => 'Available Packaging Options',
+                    'description' => 'أحجام مختلفة من العبوات لتناسب احتياجات مختلفة',
+                    'description_en' => 'Different pack sizes to suit various needs',
+                    'columns' => ['حجم العبوة', 'الوصف', 'عدد المناديل'],
+                    'columns_en' => ['Pack Size', 'Description', 'Wipes per Pack'],
+                    'rows' => [
+                        ["20's", "Adult Skincare Wipes for Bathing & Diaper Care", "20"],
+                        ["40's", "Adult Skincare Wipes for Bathing & Diaper Care", "40"]
+                    ]
+                ]
+            ],
+            'meta_title' => 'مناديل MoM n PoP للعناية ببشرة البالغين',
+            'meta_title_en' => 'MoM n PoP Adult Skincare Wipes for Bathing & Diaper Use',
+            'meta_description' => 'مناديل ناعمة وكبيرة الحجم للعناية بالبشرة والاستحمام، بدون شطف، تساعد على ترطيب وتنظيف الجلد ومنع الطفح الجلدي.',
+            'meta_description_en' => 'Large, no-rinse wipes for adult skin care and diaper use. Clean, moisturize, and protect skin—formulated with Aloe Vera and Vitamin E.',
         ]);
 
+        // Create products for Wound Care
         $product3 = Product::create([
             'category_id' => $woundCare->id,
-            'name' => 'Surgical Suture Kit',
-            'slug' => 'surgical-suture-kit',
-            'sku' => 'WC-003',
+            'name' => 'THERUPTOR™ NOVO – ضمادة ثلاثية الأبعاد مضادة للميكروبات',
+            'name_en' => 'THERUPTOR™ NOVO – 3D Hydrocellular Microbicidal Dressing',
+            'slug' => 'theruptor-novo-3d-microbicidal-dressing',
+            'sku' => 'TNV-7575',
             'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Complete surgical suture kit with various needle types and thread materials.',
-            'description' => 'Professional surgical suture kit containing different needle types, absorbable and non-absorbable sutures, and essential surgical instruments.',
+            'short_description' => 'ضمادة طبية ثلاثية الأبعاد، مضادة للميكروبات، تعتمد على تقنية مبتكرة للقضاء الفيزيائي على البكتيريا، مناسبة للجروح المزمنة.',
+            'short_description_en' => '3D antimicrobial wound dressing that uses a patented Physical Kill Mechanism (PKM) to reduce microbial load. Designed for chronic wounds.',
+            'description' => 'THERUPTOR™ NOVO هي ضمادة طبية متقدمة للجروح المزمنة تعتمد على آلية قتل فيزيائي (PKM) حاصل على براءة اختراع، حيث تقوم بجذب البكتيريا، ربطها ثم تمزيقها، مما يقلل من الحمل الميكروبي بنسبة 99.99% خلال 30 دقيقة. فعالية مضادة للميكروبات تدوم حتى 7 أيام دون نفاد، وتُقلل الألم عند تغيير الضمادة. فعالة ضد مجموعة واسعة من الكائنات الدقيقة بما فيها G+، G−، MRSA والفطريات، وتساعد في إدارة الإفرازات والرطوبة في الجروح. مناسبة لقرح القدم السكري، قرح الساق، والحروق.',
+            'description_en' => 'THERUPTOR™ NOVO is an advanced 3D wound dressing featuring a patented Physical Kill Mechanism (PKM) that attracts, binds, and ruptures microbes. Demonstrated to reduce microbial load by 99.99% within 30 minutes and offers lasting antimicrobial efficacy for up to 7 days. The dressing is non-adherent, provides broad-spectrum antimicrobial action, minimizes pain during dressing changes, and is ideal for managing exudate and moisture in chronic wounds. Suitable for Diabetic Foot Ulcers, Leg Ulcers, and Burns.',
             'specs' => [
-                'needle_types' => 'Curved, Straight',
-                'suture_materials' => 'Silk, Nylon, Absorbable',
-                'sizes' => 'Multiple sizes included',
-                'sterilization' => 'Gamma sterilized'
+                'mechanism' => 'Physical Kill Mechanism (PKM)',
+                'efficacy' => '99.99% microbial reduction in 30 minutes',
+                'duration' => 'Up to 7 days antimicrobial action',
+                'indications' => 'Diabetic Foot Ulcers, Leg Ulcers, Burns',
+                'pain_reduction' => 'Yes, during dressing changes'
             ],
-            'meta_title' => 'Surgical Suture Kit - Professional Medical Instruments',
-            'meta_description' => 'Complete surgical suture kit with various needle types and thread materials for medical procedures.',
+            'option_tables' => [
+                [
+                    'title' => 'معلومات الطلب',
+                    'title_en' => 'Ordering Information',
+                    'description' => 'أكواد المنتج والأحجام المتاحة',
+                    'description_en' => 'Product codes and available sizes',
+                    'columns' => ['الكود', 'الوصف', 'عدد القطع/العبوة'],
+                    'columns_en' => ['CODE', 'DESCRIPTION', 'NO OF UNITS/BOX'],
+                    'rows' => [
+                        ["TNV7575", "Antimicrobial Chronic Wound Dressing – For Managing Exudate & Moisture", "20"],
+                        ["TNV1010", "Antimicrobial Chronic Wound Dressing – For Managing Exudate & Moisture", "10"],
+                        ["TNV1515", "Antimicrobial Chronic Wound Dressing – For Managing Exudate & Moisture", "10"]
+                    ]
+                ]
+            ],
+            'meta_title' => 'ضمادة THERUPTOR NOVO ثلاثية الأبعاد للجروح المزمنة',
+            'meta_title_en' => 'THERUPTOR™ NOVO – 3D Antimicrobial Dressing for Chronic Wounds',
+            'meta_description' => 'ضمادة مبتكرة تعتمد على آلية قتل فيزيائي للقضاء على 99.99% من الميكروبات خلال 30 دقيقة، فعالية تدوم حتى 7 أيام.',
+            'meta_description_en' => 'Advanced 3D wound dressing using Physical Kill Mechanism (PKM) – eliminates 99.99% of microbes in 30 minutes, lasting up to 7 days.',
         ]);
 
         $product4 = Product::create([
             'category_id' => $woundCare->id,
-            'name' => 'Medical Compression Bandages',
-            'slug' => 'medical-compression-bandages',
-            'sku' => 'WC-004',
+            'name' => 'THERUPTOR™ NXT – ضمادة ثلاثية الأبعاد مضادة للميكروبات',
+            'name_en' => 'THERUPTOR™ NXT – 3D Microbicidal Composite Dressing',
+            'slug' => 'theruptor-nxt-3d-microbicidal-composite-dressing',
+            'sku' => 'TNX0607',
             'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Elastic compression bandages for wound support and circulation improvement.',
-            'description' => 'High-quality elastic compression bandages designed to provide consistent pressure for wound support, edema control, and circulation improvement.',
+            'short_description' => 'ضمادة طبية بعد العمليات الجراحية، غير لاصقة، مقاومة للماء، تقلل العدوى وتحسن التئام الجروح وتقلل الألم أثناء التغيير.',
+            'short_description_en' => 'A sterile, waterproof, non-adherent 3D microbicidal dressing for post-operative wounds. Reduces infection risk and pain while enhancing healing.',
+            'description' => 'THERUPTOR™ NXT هي ضمادة مبتكرة ما بعد العمليات الجراحية، تعتمد على تقنية PKM الحاصلة على براءة اختراع (Attract, Bind, Rupture)، لتقليل الحمل الميكروبي بنسبة 99.99%، وتتميز بتركيبة خلوية ثلاثية الأبعاد، وطبقة واقية ضد الماء، وتقلل خطر العدوى والألم، وتُسهّل التئام الجروح. تعليمات الاستخدام: قبل الاستخدام نظف الجرح جيدًا، دع المحلول المطهر يجف، لا تستخدم على الجلد الرطب. أثناء الاستخدام لا تلمس الطبقة اللاصقة، تأكد من تغطية الجرح بالكامل، أزل الغشاء بهدوء وثبّت الضمادة. بعد التثبيت تأكد من عدم وجود فراغات.',
+            'description_en' => 'THERUPTOR™ NXT is a next-gen postoperative wound dressing with a patented PKM (Physical Kill Mechanism) that attracts, binds, and ruptures microbes. Offers waterproof protection, non-adherent application, and 99.99% microbial load reduction, while reducing surgical site infections and pain during dressing changes. Instructions: Before use clean the wound thoroughly, let antiseptic solution dry, do not use on wet skin. During use do not touch the adhesive layer, ensure complete wound coverage, remove backing gently and secure dressing. After application ensure no gaps remain.',
             'specs' => [
-                'material' => 'Elastic cotton blend',
-                'compression' => 'Graduated compression',
-                'widths' => '5cm, 7.5cm, 10cm',
-                'length' => '4.5 meters each'
+                'type' => 'ضمادة مضادة للميكروبات ثلاثية الطبقات',
+                'use' => 'ما بعد العمليات الجراحية',
+                'efficacy' => 'تقليل الحمل الميكروبي بنسبة 99.99%',
+                'mechanism' => 'PKM – Attract | Bind | Rupture',
+                'layers' => 'طبقة خلوية + طبقة داعمة + طبقة لاصقة مقاومة للماء',
+                'waterproof' => 'نعم',
+                'non_adherent' => 'نعم',
+                'pain_reduction' => 'نعم، أثناء تغيير الضمادة',
+                'optimal_use' => 'تنظيف الجرح جيداً، عدم الاستخدام على الجلد الرطب'
             ],
-            'meta_title' => 'Medical Compression Bandages - Wound Support',
-            'meta_description' => 'Elastic compression bandages for wound support and circulation improvement in medical care.',
-        ]);
-
-        // Create products for Infection Control
-        $product5 = Product::create([
-            'category_id' => $infectionControl->id,
-            'name' => 'Antimicrobial Hand Sanitizer',
-            'slug' => 'antimicrobial-hand-sanitizer',
-            'sku' => 'IC-001',
-            'hero_image' => 'products/placeholder.svg',
-            'short_description' => '70% alcohol-based hand sanitizer for effective antimicrobial protection.',
-            'description' => 'Professional-grade antimicrobial hand sanitizer with 70% alcohol content. Effective against bacteria, viruses, and fungi. Ideal for healthcare settings.',
-            'specs' => [
-                'alcohol_content' => '70%',
-                'volume' => '500ml, 1L',
-                'effectiveness' => '99.9% germ kill',
-                'fragrance' => 'Unscented'
+            'option_tables' => [
+                [
+                    'title' => 'متاح في 7 أحجام',
+                    'title_en' => 'Available in 7 Sizes',
+                    'description' => 'أحجام مختلفة من الضمادات لتناسب أنواع الجروح المختلفة',
+                    'description_en' => 'Different dressing sizes to suit various wound types',
+                    'columns' => ['الكود', 'حجم الضمادة', 'حجم الوسادة', 'عدد العبوات/الصندوق'],
+                    'columns_en' => ['Code', 'Dressing Size', 'Pad Size', 'No. of packs/box'],
+                    'rows' => [
+                        ["TNX0607", "6 X 7 cm", "2 X 3 cm", "20"],
+                        ["TNX0810", "8 X 10 cm", "3 X 5 cm", "20"],
+                        ["TNX1015", "10 X 15 cm", "5 X 10 cm", "10"],
+                        ["TNX1020", "10 X 20 cm", "5 X 15 cm", "10"],
+                        ["TNX1025", "10 X 25 cm", "5 X 20 cm", "10"],
+                        ["TNX1030", "10 X 30 cm", "5 X 25 cm", "10"],
+                        ["TNX1035", "10 X 35 cm", "5 X 30 cm", "10"]
+                    ]
+                ]
             ],
-            'meta_title' => 'Antimicrobial Hand Sanitizer - Healthcare Grade',
-            'meta_description' => '70% alcohol-based hand sanitizer for effective antimicrobial protection in healthcare settings.',
-        ]);
-
-        $product6 = Product::create([
-            'category_id' => $infectionControl->id,
-            'name' => 'Disposable Nitrile Gloves',
-            'slug' => 'disposable-nitrile-gloves',
-            'sku' => 'IC-002',
-            'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Powder-free nitrile examination gloves for medical use.',
-            'description' => 'High-quality powder-free nitrile examination gloves providing excellent barrier protection. Latex-free and suitable for sensitive skin.',
-            'specs' => [
-                'material' => 'Nitrile rubber',
-                'powder' => 'Powder-free',
-                'sizes' => 'S, M, L, XL',
-                'thickness' => '4.0 mil'
-            ],
-            'meta_title' => 'Disposable Nitrile Gloves - Medical Examination',
-            'meta_description' => 'Powder-free nitrile examination gloves providing excellent barrier protection for medical use.',
-        ]);
-
-        $product7 = Product::create([
-            'category_id' => $infectionControl->id,
-            'name' => 'Surface Disinfectant Wipes',
-            'slug' => 'surface-disinfectant-wipes',
-            'sku' => 'IC-003',
-            'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Hospital-grade disinfectant wipes for surface cleaning and sanitization.',
-            'description' => 'Hospital-grade disinfectant wipes effective against a broad spectrum of pathogens. Perfect for cleaning and disinfecting medical equipment and surfaces.',
-            'specs' => [
-                'active_ingredient' => 'Quaternary ammonium',
-                'kill_time' => '30 seconds',
-                'count' => '160 wipes per canister',
-                'surface_compatibility' => 'Multi-surface'
-            ],
-            'meta_title' => 'Surface Disinfectant Wipes - Hospital Grade',
-            'meta_description' => 'Hospital-grade disinfectant wipes for effective surface cleaning and sanitization.',
-        ]);
-
-        $product8 = Product::create([
-            'category_id' => $infectionControl->id,
-            'name' => 'UV Sterilization Cabinet',
-            'slug' => 'uv-sterilization-cabinet',
-            'sku' => 'IC-004',
-            'hero_image' => 'products/placeholder.svg',
-            'short_description' => 'Professional UV-C sterilization cabinet for medical instruments.',
-            'description' => 'Professional-grade UV-C sterilization cabinet designed for sterilizing medical instruments, tools, and equipment. Features automated cycle control and safety interlocks.',
-            'specs' => [
-                'uv_wavelength' => '254nm UV-C',
-                'capacity' => '20 liters',
-                'cycle_time' => '15-30 minutes',
-                'safety_features' => 'Door interlock, timer'
-            ],
-            'meta_title' => 'UV Sterilization Cabinet - Medical Equipment',
-            'meta_description' => 'Professional UV-C sterilization cabinet for effective sterilization of medical instruments.',
+            'meta_title' => 'ضمادة THERUPTOR NXT للجروح بعد العمليات',
+            'meta_title_en' => 'THERUPTOR™ NXT – Microbicidal Post-Op Wound Dressing',
+            'meta_description' => 'ضمادة طبية مقاومة للماء وغير لاصقة تقلل العدوى بعد العمليات الجراحية وتُسرّع التئام الجروح، بتقنية قتل الميكروبات بنسبة 99.99%.',
+            'meta_description_en' => 'Advanced post-op wound dressing with patented PKM tech. Waterproof, non-adherent, and reduces microbial load by 99.99%. Available in 7 sizes.',
         ]);
 
         // Create sample product images
-        $products = [$product1, $product2, $product3, $product4, $product5, $product6, $product7, $product8];
+        $products = [$product1, $product2, $product3, $product4];
         
         foreach ($products as $index => $product) {
             // Create 2-3 sample images per product

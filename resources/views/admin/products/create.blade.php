@@ -35,15 +35,28 @@
                     </div>
 
                     <div class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Product Name -->
-                        <div class="lg:col-span-2">
+                        <!-- Product Name - Arabic -->
+                        <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                                اسم المنتج <span class="text-red-500">*</span>
+                                اسم المنتج (عربي) <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="name" id="name" value="{{ old('name') }}" required
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
                                    placeholder="مثل: جهاز تعقيم بالأشعة فوق البنفسجية">
                             @error('name')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Product Name - English -->
+                        <div>
+                            <label for="name_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                اسم المنتج (إنجليزي)
+                            </label>
+                            <input type="text" name="name_en" id="name_en" value="{{ old('name_en') }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('name_en') border-red-500 @enderror"
+                                   placeholder="e.g: UV Sterilization Device">
+                            @error('name_en')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -87,10 +100,10 @@
                             @endif
                         </div>
 
-                        <!-- Short Description -->
-                        <div class="lg:col-span-2">
+                        <!-- Short Description - Arabic -->
+                        <div>
                             <label for="short_description" class="block text-sm font-medium text-gray-700 mb-2">
-                                وصف مختصر <span class="text-red-500">*</span>
+                                وصف مختصر (عربي) <span class="text-red-500">*</span>
                             </label>
                             <textarea name="short_description" id="short_description" rows="3" required
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('short_description') border-red-500 @enderror"
@@ -100,15 +113,41 @@
                             @enderror
                         </div>
 
-                        <!-- Full Description -->
-                        <div class="lg:col-span-2">
+                        <!-- Short Description - English -->
+                        <div>
+                            <label for="short_description_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                وصف مختصر (إنجليزي)
+                            </label>
+                            <textarea name="short_description_en" id="short_description_en" rows="3"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('short_description_en') border-red-500 @enderror"
+                                      placeholder="Short description for product listings">{{ old('short_description_en') }}</textarea>
+                            @error('short_description_en')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Full Description - Arabic -->
+                        <div>
                             <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                                الوصف الكامل
+                                الوصف الكامل (عربي)
                             </label>
                             <textarea name="description" id="description" rows="6"
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror"
                                       placeholder="وصف تفصيلي عن المنتج وفوائده واستخداماته">{{ old('description') }}</textarea>
                             @error('description')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Full Description - English -->
+                        <div>
+                            <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                الوصف الكامل (إنجليزي)
+                            </label>
+                            <textarea name="description_en" id="description_en" rows="6"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('description_en') border-red-500 @enderror"
+                                      placeholder="Detailed description about the product and its benefits">{{ old('description_en') }}</textarea>
+                            @error('description_en')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -175,8 +214,8 @@
                     </div>
                 </div>
 
-                <!-- Product Specifications (الحقول الحرة) -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                <!-- Product Specifications (الحقول الحرة) - HIDDEN -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100" style="display: none;">
                     <div class="px-6 py-4 border-b border-gray-100">
                         <h2 class="text-lg font-semibold text-gray-900">مواصفات المنتج</h2>
                         <p class="text-sm text-gray-600 mt-1">أضف المواصفات التقنية والخصائص</p>
@@ -209,6 +248,34 @@
                     </div>
                 </div>
 
+                <!-- Dynamic Option Tables -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <div class="px-6 py-4 border-b border-gray-100">
+                        <h2 class="text-lg font-semibold text-gray-900">جداول المنتج الديناميكية</h2>
+                        <p class="text-sm text-gray-600 mt-1">أضف جداول مخصصة مثل معلومات الطلب أو الأحجام المتاحة</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                ملاحظة: العناوين والأعمدة يمكن إدخالها باللغتين
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-6">
+                        <div id="option-tables-container">
+                            <!-- Tables will be added dynamically -->
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button type="button" id="add-option-table" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                إضافة جدول جديد
+                            </button>
+                            <button type="button" id="remove-option-table" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors" style="display: none;">
+                                حذف الجدول الأخير
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- SEO Section -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100">
                     <div class="px-6 py-4 border-b border-gray-100">
@@ -217,10 +284,10 @@
                     </div>
 
                     <div class="p-6 grid grid-cols-1 gap-6">
-                        <!-- Meta Title -->
+                        <!-- Meta Title - Arabic -->
                         <div>
                             <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2">
-                                عنوان الصفحة (Meta Title)
+                                عنوان الصفحة (عربي)
                             </label>
                             <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title') }}" maxlength="60"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_title') border-red-500 @enderror"
@@ -231,10 +298,24 @@
                             <p class="mt-1 text-sm text-gray-500">يُفضل أن يكون بين 50-60 حرف</p>
                         </div>
 
-                        <!-- Meta Description -->
+                        <!-- Meta Title - English -->
+                        <div>
+                            <label for="meta_title_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                عنوان الصفحة (إنجليزي)
+                            </label>
+                            <input type="text" name="meta_title_en" id="meta_title_en" value="{{ old('meta_title_en') }}" maxlength="60"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_title_en') border-red-500 @enderror"
+                                   placeholder="Page title for search engines">
+                            @error('meta_title_en')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <p class="mt-1 text-sm text-gray-500">Recommended 50-60 characters</p>
+                        </div>
+
+                        <!-- Meta Description - Arabic -->
                         <div>
                             <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">
-                                وصف الصفحة (Meta Description)
+                                وصف الصفحة (عربي)
                             </label>
                             <textarea name="meta_description" id="meta_description" rows="3" maxlength="160"
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_description') border-red-500 @enderror"
@@ -243,6 +324,20 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-sm text-gray-500">يُفضل أن يكون بين 150-160 حرف</p>
+                        </div>
+
+                        <!-- Meta Description - English -->
+                        <div>
+                            <label for="meta_description_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                وصف الصفحة (إنجليزي)
+                            </label>
+                            <textarea name="meta_description_en" id="meta_description_en" rows="3" maxlength="160"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_description_en') border-red-500 @enderror"
+                                      placeholder="Short page description for search results">{{ old('meta_description_en') }}</textarea>
+                            @error('meta_description_en')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <p class="mt-1 text-sm text-gray-500">Recommended 150-160 characters</p>
                         </div>
                     </div>
                 </div>
@@ -365,5 +460,209 @@
 
         setupFilePreview('hero_image');
         setupFilePreview('images');
+
+        // Option Tables Management
+        let optionTableCount = 0;
+
+        // Add option table
+        document.getElementById('add-option-table').addEventListener('click', function() {
+            const container = document.getElementById('option-tables-container');
+            const tableDiv = document.createElement('div');
+            tableDiv.className = 'option-table border border-gray-200 rounded-lg p-4 mb-4';
+            tableDiv.setAttribute('data-table-index', optionTableCount);
+            
+            tableDiv.innerHTML = `
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-md font-medium text-gray-800">جدول #${optionTableCount + 1}</h4>
+                    <button type="button" class="text-red-600 hover:text-red-800" onclick="removeOptionTable(this)">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Table Title - Arabic -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (عربي)</label>
+                    <input type="text" name="option_tables[${optionTableCount}][title]" 
+                           placeholder="مثل: معلومات الطلب" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <!-- Table Title - English -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (إنجليزي)</label>
+                    <input type="text" name="option_tables[${optionTableCount}][title_en]" 
+                           placeholder="e.g: Ordering Information" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- Table Description - Arabic -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">وصف الجدول (عربي)</label>
+                    <textarea name="option_tables[${optionTableCount}][description]" 
+                              placeholder="وصف مختصر عن محتوى الجدول"
+                              rows="2"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+
+                <!-- Table Description - English -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">وصف الجدول (إنجليزي)</label>
+                    <textarea name="option_tables[${optionTableCount}][description_en]" 
+                              placeholder="Brief description about table content"
+                              rows="2"
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+                
+                <!-- Column Count -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">عدد الأعمدة</label>
+                    <input type="number" min="1" max="10" value="3" 
+                           class="column-count-input w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                           onchange="updateTableColumns(this, ${optionTableCount})">
+                </div>
+                
+                <!-- Columns - Arabic -->
+                <div class="columns-container mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">أسماء الأعمدة (عربي)</label>
+                    <div class="columns-grid grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input type="text" name="option_tables[${optionTableCount}][columns][0]" placeholder="العمود الأول" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns][1]" placeholder="العمود الثاني" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns][2]" placeholder="العمود الثالث" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <!-- Columns - English -->
+                <div class="columns-container-en mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">أسماء الأعمدة (إنجليزي)</label>
+                    <div class="columns-grid-en grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input type="text" name="option_tables[${optionTableCount}][columns_en][0]" placeholder="First Column" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns_en][1]" placeholder="Second Column" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="option_tables[${optionTableCount}][columns_en][2]" placeholder="Third Column" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <!-- Rows -->
+                <div class="rows-container">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-sm font-medium text-gray-700">صفوف البيانات</label>
+                        <div>
+                            <button type="button" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded" onclick="addTableRow(this, ${optionTableCount})">إضافة صف</button>
+                            <button type="button" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded" onclick="removeTableRow(this, ${optionTableCount})">حذف صف</button>
+                        </div>
+                    </div>
+                    <div class="rows-grid">
+                        <div class="row-item grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
+                            <input type="text" name="option_tables[${optionTableCount}][rows][0][0]" placeholder="قيمة العمود الأول" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <input type="text" name="option_tables[${optionTableCount}][rows][0][1]" placeholder="قيمة العمود الثاني" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <input type="text" name="option_tables[${optionTableCount}][rows][0][2]" placeholder="قيمة العمود الثالث" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(tableDiv);
+            optionTableCount++;
+            
+            // Show remove button if more than one table
+            if (optionTableCount > 0) {
+                document.getElementById('remove-option-table').style.display = 'block';
+            }
+        });
+
+        // Remove option table
+        document.getElementById('remove-option-table').addEventListener('click', function() {
+            const container = document.getElementById('option-tables-container');
+            const tables = container.querySelectorAll('.option-table');
+            if (tables.length > 0) {
+                container.removeChild(tables[tables.length - 1]);
+                optionTableCount--;
+            }
+            
+            // Hide remove button if no tables left
+            if (container.querySelectorAll('.option-table').length === 0) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Helper functions for table management
+        window.removeOptionTable = function(button) {
+            const tableDiv = button.closest('.option-table');
+            tableDiv.remove();
+            
+            // Hide remove button if no tables left
+            const container = document.getElementById('option-tables-container');
+            if (container.querySelectorAll('.option-table').length === 0) {
+                document.getElementById('remove-option-table').style.display = 'none';
+            }
+        };
+
+        window.updateTableColumns = function(input, tableIndex) {
+            const columnCount = parseInt(input.value);
+            const tableDiv = input.closest('.option-table');
+            const columnsGrid = tableDiv.querySelector('.columns-grid');
+            const rowsContainer = tableDiv.querySelector('.rows-grid');
+            
+            // Update columns
+            columnsGrid.innerHTML = '';
+            columnsGrid.className = `columns-grid grid grid-cols-1 md:grid-cols-${Math.min(columnCount, 4)} gap-3`;
+            
+            for (let i = 0; i < columnCount; i++) {
+                const columnInput = document.createElement('input');
+                columnInput.type = 'text';
+                columnInput.name = `option_tables[${tableIndex}][columns][${i}]`;
+                columnInput.placeholder = `العمود ${i + 1}`;
+                columnInput.className = 'px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500';
+                columnsGrid.appendChild(columnInput);
+            }
+            
+            // Update existing rows
+            const rows = rowsContainer.querySelectorAll('.row-item');
+            rows.forEach((row, rowIndex) => {
+                row.innerHTML = '';
+                row.className = `row-item grid grid-cols-1 md:grid-cols-${Math.min(columnCount, 4)} gap-3 mb-2`;
+                
+                for (let i = 0; i < columnCount; i++) {
+                    const cellInput = document.createElement('input');
+                    cellInput.type = 'text';
+                    cellInput.name = `option_tables[${tableIndex}][rows][${rowIndex}][${i}]`;
+                    cellInput.placeholder = `قيمة العمود ${i + 1}`;
+                    cellInput.className = 'px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500';
+                    row.appendChild(cellInput);
+                }
+            });
+        };
+
+        window.addTableRow = function(button, tableIndex) {
+            const tableDiv = button.closest('.option-table');
+            const rowsGrid = tableDiv.querySelector('.rows-grid');
+            const columnCount = parseInt(tableDiv.querySelector('.column-count-input').value);
+            const currentRowCount = rowsGrid.querySelectorAll('.row-item').length;
+            
+            const rowDiv = document.createElement('div');
+            rowDiv.className = `row-item grid grid-cols-1 md:grid-cols-${Math.min(columnCount, 4)} gap-3 mb-2`;
+            
+            for (let i = 0; i < columnCount; i++) {
+                const cellInput = document.createElement('input');
+                cellInput.type = 'text';
+                cellInput.name = `option_tables[${tableIndex}][rows][${currentRowCount}][${i}]`;
+                cellInput.placeholder = `قيمة العمود ${i + 1}`;
+                cellInput.className = 'px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500';
+                rowDiv.appendChild(cellInput);
+            }
+            
+            rowsGrid.appendChild(rowDiv);
+        };
+
+        window.removeTableRow = function(button, tableIndex) {
+            const tableDiv = button.closest('.option-table');
+            const rowsGrid = tableDiv.querySelector('.rows-grid');
+            const rows = rowsGrid.querySelectorAll('.row-item');
+            
+            if (rows.length > 1) {
+                rowsGrid.removeChild(rows[rows.length - 1]);
+            }
+        };
     </script>
 </x-admin-layout>

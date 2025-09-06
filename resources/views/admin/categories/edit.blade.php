@@ -45,10 +45,10 @@
                     @csrf
                     @method('PUT')
 
-                    <!-- Category Name -->
+                    <!-- Category Name - Arabic -->
                     <div class="mb-6">
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                            اسم الفئة <span class="text-red-500">*</span>
+                            اسم الفئة (عربي) <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}" required
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
@@ -59,10 +59,23 @@
                         <p class="mt-1 text-sm text-gray-500">الرابط الحالي: <span class="font-mono text-blue-600">{{ $category->slug }}</span></p>
                     </div>
 
-                    <!-- Description -->
+                    <!-- Category Name - English -->
+                    <div class="mb-6">
+                        <label for="name_en" class="block text-sm font-medium text-gray-700 mb-2">
+                            اسم الفئة (إنجليزي)
+                        </label>
+                        <input type="text" name="name_en" id="name_en" value="{{ old('name_en', $category->name_en) }}"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('name_en') border-red-500 @enderror"
+                               placeholder="e.g: Wound Care">
+                        @error('name_en')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Description - Arabic -->
                     <div class="mb-6">
                         <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
-                            وصف الفئة
+                            وصف الفئة (عربي)
                         </label>
                         <textarea name="description" id="description" rows="4" 
                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('description') border-red-500 @enderror"
@@ -72,14 +85,27 @@
                         @enderror
                     </div>
 
+                    <!-- Description - English -->
+                    <div class="mb-6">
+                        <label for="description_en" class="block text-sm font-medium text-gray-700 mb-2">
+                            وصف الفئة (إنجليزي)
+                        </label>
+                        <textarea name="description_en" id="description_en" rows="4" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('description_en') border-red-500 @enderror"
+                                  placeholder="Brief description about the category and its products">{{ old('description_en', $category->description_en) }}</textarea>
+                        @error('description_en')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- SEO Section -->
                     <div class="border-t border-gray-100 pt-6 mb-6">
                         <h3 class="text-base font-semibold text-gray-900 mb-4">إعدادات SEO</h3>
                         
-                        <!-- Meta Title -->
+                        <!-- Meta Title - Arabic -->
                         <div class="mb-4">
                             <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2">
-                                عنوان الصفحة (Meta Title)
+                                عنوان الصفحة (عربي)
                             </label>
                             <input type="text" name="meta_title" id="meta_title" value="{{ old('meta_title', $category->meta_title) }}" maxlength="60"
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_title') border-red-500 @enderror"
@@ -90,10 +116,24 @@
                             <p class="mt-1 text-sm text-gray-500">يُفضل أن يكون بين 50-60 حرف</p>
                         </div>
 
-                        <!-- Meta Description -->
+                        <!-- Meta Title - English -->
+                        <div class="mb-4">
+                            <label for="meta_title_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                عنوان الصفحة (إنجليزي)
+                            </label>
+                            <input type="text" name="meta_title_en" id="meta_title_en" value="{{ old('meta_title_en', $category->meta_title_en) }}" maxlength="60"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_title_en') border-red-500 @enderror"
+                                   placeholder="Category title for search engines">
+                            @error('meta_title_en')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <p class="mt-1 text-sm text-gray-500">Recommended 50-60 characters</p>
+                        </div>
+
+                        <!-- Meta Description - Arabic -->
                         <div class="mb-4">
                             <label for="meta_description" class="block text-sm font-medium text-gray-700 mb-2">
-                                وصف الصفحة (Meta Description)
+                                وصف الصفحة (عربي)
                             </label>
                             <textarea name="meta_description" id="meta_description" rows="3" maxlength="160"
                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_description') border-red-500 @enderror"
@@ -102,6 +142,20 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-sm text-gray-500">يُفضل أن يكون بين 150-160 حرف</p>
+                        </div>
+
+                        <!-- Meta Description - English -->
+                        <div class="mb-4">
+                            <label for="meta_description_en" class="block text-sm font-medium text-gray-700 mb-2">
+                                وصف الصفحة (إنجليزي)
+                            </label>
+                            <textarea name="meta_description_en" id="meta_description_en" rows="3" maxlength="160"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 @error('meta_description_en') border-red-500 @enderror"
+                                      placeholder="Brief category description for search results">{{ old('meta_description_en', $category->meta_description_en) }}</textarea>
+                            @error('meta_description_en')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <p class="mt-1 text-sm text-gray-500">Recommended 150-160 characters</p>
                         </div>
                     </div>
 
@@ -132,19 +186,26 @@
                                 حفظ التعديلات
                             </button>
                         </div>
-                        
-                        <div class="flex items-center space-x-2 space-x-reverse">
-                            <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" class="inline" 
-                                  onsubmit="return confirm('هل أنت متأكد من حذف هذه الفئة؟ سيتم حذف جميع المنتجات المرتبطة بها أيضاً.')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
-                                    حذف الفئة
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 </form>
+                
+                <!-- Delete Form (Outside the update form) -->
+                <div class="mt-6 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-red-600">منطقة الخطر</h3>
+                            <p class="text-sm text-gray-600 mt-1">حذف الفئة عملية لا يمكن التراجع عنها</p>
+                        </div>
+                        <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" class="inline" 
+                              onsubmit="return confirm('هل أنت متأكد من حذف هذه الفئة؟ سيتم حذف جميع المنتجات المرتبطة بها أيضاً.')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                حذف الفئة
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <!-- Category Statistics -->
