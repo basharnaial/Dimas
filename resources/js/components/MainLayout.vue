@@ -1,18 +1,18 @@
 <template>
   <div class="medical-layout">
     <!-- Professional Medical Header -->
-    <header class="medical-header">
+    <header class="medical-header" :dir="i18n.isRTL() ? 'rtl' : 'ltr'">
       <div class="header-backdrop"></div>
       <div class="container">
         <div class="header-content">
           <!-- Premium Medical Logo -->
           <div class="medical-logo">
             <router-link to="/" class="logo-container">
-              <img src="/storage/products/logo-dimas.svg" alt="Demas Logo" class="logo-svg" />
+              <img src="/storage/products/logo-dimas.svg" alt="Dimas Logo" class="logo-svg" />
 
               <div class="logo-text">
-                <span class="brand-name">ديماس</span>
-                <span class="brand-tagline">الحلول الطبية المتقدمة</span>
+                <span class="brand-name">{{ i18n.t('company_name') }}</span>
+                <span class="brand-tagline">{{ i18n.t('company_tagline') }}</span>
               </div>
             </router-link>
           </div>
@@ -68,12 +68,12 @@
             <router-link to="/contact" class="mobile-item" @click="closeMobileMenu">
               <span>{{ i18n.t('contact') }}</span>
             </router-link>
-            <a href="/login" class="mobile-admin" @click="closeMobileMenu">
+            <!-- <a href="/login" class="mobile-admin" @click="closeMobileMenu">
               <svg viewBox="0 0 24 24" fill="white">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
-              <!-- <span>{{ i18n.t('admin_panel') }}</span> -->
-          </a>
+              <span>{{ i18n.t('admin_panel') }}</span>
+          </a> -->
           </div>
         </div>
       </div>
@@ -207,9 +207,8 @@ export default {
       this.mobileMenuOpen = false
     },
     handleLanguageChange(newLanguage) {
-      // Language change is handled by the LanguageSwitcher component
-      // This method can be used for additional logic if needed
-      console.log('Language changed to:', newLanguage)
+      // Update language in i18n system
+      this.i18n.setLanguage(newLanguage)
       // Reload categories when language changes
       this.loadFooterCategories()
     },
@@ -245,6 +244,11 @@ export default {
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* English layout for header */
+.medical-header[dir="ltr"] .header-content {
+  direction: ltr;
 }
 
 .header-backdrop {
@@ -503,10 +507,79 @@ export default {
   align-items: start;
 }
 
+/* Mobile layout - single column */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-2xl) 1rem var(--spacing-xl);
+    text-align: center;
+  }
+  
+  /* Center all footer sections on mobile */
+  .footer-company,
+  .footer-links,
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Center company logo and text */
+  .footer-logo {
+    justify-content: center;
+  }
+  
+  /* Center navigation links */
+  .footer-nav {
+    align-items: center;
+  }
+  
+  .footer-nav ul {
+    align-items: center;
+  }
+  
+  /* Center contact information */
+  .contact-item {
+    justify-content: center;
+  }
+  
+  /* Center footer bottom */
+  .footer-bottom {
+    text-align: center;
+  }
+  
+  /* Center section headings */
+  .footer-section h3 {
+    text-align: center;
+  }
+  
+  /* Center all text elements */
+  .footer-company p,
+  .footer-nav li,
+  .contact-item {
+    text-align: center;
+  }
+  
+  /* Center the company description */
+  .footer-company p {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
 /* English layout - reverse order of main grid items */
 .medical-footer[dir="ltr"] .footer-container {
   direction: ltr;
   grid-template-columns: 1fr 2fr; /* عكس الترتيب: الروابط أولاً ثم الشعار */
+}
+
+/* Mobile layout for English - single column */
+@media (max-width: 768px) {
+  .medical-footer[dir="ltr"] .footer-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* RTL support for contact icons */

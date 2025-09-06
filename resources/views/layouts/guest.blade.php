@@ -19,7 +19,7 @@
             <div class="mb-8">
                 <a href="/" class="block">
                     <img src="{{ asset('storage/products/logo-dimas.png') }}" 
-                         alt="Demas Logo" 
+                         alt="Dimas Logo" 
                          class="w-32 h-32 mx-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300" />
                 </a>
             </div>

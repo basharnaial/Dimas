@@ -4,7 +4,7 @@
     <section class="hero-section">
       <!-- Background Logo -->
       <div class="hero-background-logo">
-        <img src="/storage/products/7Y7xXk01.svg" alt="Demas Background" class="background-logo-svg" />
+        <img src="/storage/products/7Y7xXk01.svg" alt="Dimas Background" class="background-logo-svg" />
       </div>
       <div class="hero-content">
         <h1 class="hero-title">

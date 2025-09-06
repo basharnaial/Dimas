@@ -175,9 +175,9 @@ const translations = {
     validation_errors: 'Please correct the following errors:',
     
     // Hero section
-    welcome_title: 'Welcome to ',
+    welcome_title: 'Dimas',
+    welcome_title_brand: 'Welcome to',
     welcome_subtitle: 'Discover our premium products and advanced services',
-    welcome_title_brand: 'Dimas',
 
     // Sections
     our_categories: 'Our Categories',
@@ -185,7 +185,7 @@ const translations = {
     contact_section_text: 'Have a question? We\'re here to help',
     
     // Company info
-    company_name: 'Demas',
+    company_name: 'Dimas',
     company_tagline: 'Advanced Medical Solutions',
     company_description: 'We are a leading company in providing high-quality medical equipment and supplies to healthcare institutions and medical professionals throughout the Kingdom.',
     
@@ -207,7 +207,7 @@ const translations = {
     address_value: 'Riyadh, Saudi Arabia',
     
     // Footer bottom
-    copyright: '© 2024 Demas Medical Solutions. All rights reserved.',
+    copyright: '© 2026 Dimas Medical Solutions. All rights reserved.',
     privacy_policy: 'Privacy Policy',
     terms_conditions: 'Terms & Conditions',
     return_policy: 'Return Policy'

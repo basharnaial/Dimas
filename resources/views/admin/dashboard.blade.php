@@ -15,7 +15,7 @@
                     <div>
                         <div class="flex items-center mb-4">
                             <img src="{{ asset('storage/products/logo-dimas.svg') }}" 
-                                 alt="Demas Logo" 
+                                 alt="Dimas Logo" 
                                  class="h-16 w-16 object-contain drop-shadow-lg ml-4" />
                             <div>
                                 <h1 class="text-4xl font-bold text-gray-900 mb-2">مرحباً، {{ Auth::user()->name }}</h1>

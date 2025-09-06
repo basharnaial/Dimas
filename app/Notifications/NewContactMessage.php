@@ -40,7 +40,7 @@ class NewContactMessage extends Notification implements ShouldQueue
         $message = $this->contactMessage;
         
         return (new MailMessage)
-            ->subject('رسالة جديدة من موقع ديماس - New Contact Message from Demas')
+            ->subject('رسالة جديدة من موقع ديماس - New Contact Message from Dimas')
             ->greeting('رسالة جديدة من الموقع / New Website Message')
             ->line("**الاسم / Name:** {$message->name}")
             ->lineIf($message->email, "**البريد الإلكتروني / Email:** {$message->email}")

@@ -26,7 +26,7 @@
                         <div class="shrink-0 flex items-center">
                             <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 space-x-reverse hover:scale-105 transition-transform duration-300">
                                 <img src="{{ asset('storage/products/logo-dimas.svg') }}" 
-                                     alt="Demas Logo" 
+                                     alt="Dimas Logo" 
                                      class="h-12 w-12 object-contain drop-shadow-md" />
                                 <div class="text-right">
                                     <h1 class="text-xl font-bold text-gray-800 leading-tight">ديماس</h1>

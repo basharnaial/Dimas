@@ -19,8 +19,8 @@ class DemoSeeder extends Seeder
         // Create admin user
         $admin = User::create([
             'name' => 'Admin User',
-            'email' => 'admin@demas.com',
-            'password' => Hash::make('password'),
+            'email' => 'admin@dimas.com',
+            'password' => Hash::make('password112211'),
             'is_admin' => true,
         ]);
 
@@ -40,7 +40,7 @@ class DemoSeeder extends Seeder
             'description' => 'منتجات العناية بالجروح والضمادات الطبية المتقدمة للاستخدام في المؤسسات الصحية',
             'description_en' => 'Advanced wound care products and medical dressings for healthcare institutions',
             'meta_title' => 'منتجات العناية بالجروح - ديماس',
-            'meta_title_en' => 'Wound Care Products - Demas',
+            'meta_title_en' => 'Wound Care Products - Dimas',
             'meta_description' => 'منتجات احترافية للعناية بالجروح للمؤسسات الصحية والمهنيين الطبيين',
             'meta_description_en' => 'Professional wound care products for healthcare institutions and medical professionals',
             'is_active' => true,

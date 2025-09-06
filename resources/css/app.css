@@ -109,15 +109,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Arabic Text Styling */
-[dir="rtl"], .rtl {
-  font-family: var(--font-arabic);
-  text-align: right;
+a.contact-value.contact-email {
+  background-color: #007dbb5e;
 }
-
-[dir="ltr"], .ltr {
-  font-family: var(--font-english);
-  text-align: left;
+a.contact-value.contact-whatsapp {
+  background-color: rgb(158 227 158);
 }
 
 /* Automatic font selection based on content */
