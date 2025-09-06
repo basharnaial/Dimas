@@ -1,10 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=SF+Pro+Text:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Arabic Font - Cairo (Elegant and Professional) */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* English Font - Poppins (Modern and Elegant) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Backup English Font - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  
   /* Apple-Style Medical Color Palette */
   --primary: #007DBB;
   --primary-light: #1A8FCC;
@@ -43,9 +50,11 @@
   --surface-tertiary: #f5f5f5;
   --surface-elevated: #ffffff;
   
-  /* Apple-Style Typography */
-  --font-display: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-text: 'SF Pro Text', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Typography - Arabic & English */
+  --font-arabic: 'Cairo', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-english: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-english);
+  --font-text: var(--font-english);
   
   /* Apple-Style Spacing */
   --spacing-xs: 0.25rem;
@@ -72,6 +81,9 @@
 
 * {
   box-sizing: border-box;
+
+  font-family: var(--font-arabic);
+
 }
 
 body {
@@ -82,6 +94,91 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Language-Specific Font Classes */
+.font-arabic {
+  font-family: var(--font-arabic) !important;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-english {
+  font-family: var(--font-english) !important;
+  font-feature-settings: 'liga' 1, 'kern' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Arabic Text Styling */
+[dir="rtl"], .rtl {
+  font-family: var(--font-arabic);
+  text-align: right;
+}
+
+[dir="ltr"], .ltr {
+  font-family: var(--font-english);
+  text-align: left;
+}
+
+/* Automatic font selection based on content */
+:lang(ar) {
+  font-family: var(--font-arabic);
+}
+
+:lang(en) {
+  font-family: var(--font-english);
+}
+
+/* Enhanced font utilities for Vue components */
+.text-arabic {
+  font-family: var(--font-arabic) !important;
+  direction: rtl;
+}
+
+.text-english {
+  font-family: var(--font-english) !important;
+  direction: ltr;
+}
+
+/* Responsive Arabic typography */
+.hero-arabic {
+  font-family: var(--font-arabic);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.title-arabic {
+  font-family: var(--font-arabic);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.body-arabic {
+  font-family: var(--font-arabic);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Responsive English typography */
+.hero-english {
+  font-family: var(--font-english);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.title-english {
+  font-family: var(--font-english);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.body-english {
+  font-family: var(--font-english);
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 /* Apple-Style Typography Scale */

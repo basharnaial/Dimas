@@ -23,33 +23,35 @@
           <!-- Professional Navigation -->
           <nav class="medical-nav">
             <router-link to="/" class="nav-item">
-              <span>الرئيسية</span>
+              <span>{{ i18n.t('home') }}</span>
             </router-link>
             <router-link to="/products" class="nav-item">
-              <span>منتجاتنا</span>
+              <span>{{ i18n.t('products') }}</span>
             </router-link>
             <router-link to="/about" class="nav-item">
-              <span>عن الشركة</span>
+              <span>{{ i18n.t('about') }}</span>
             </router-link>
             <router-link to="/contact" class="nav-item">
-              <span>تواصل معنا</span>
+              <span>{{ i18n.t('contact') }}</span>
             </router-link>
           </nav>
 
           <!-- Professional Admin Access -->
           <div class="header-actions">
+            <LanguageSwitcher @language-changed="handleLanguageChange" />
+            
             <a href="/login" class="admin-access">
               <svg viewBox="0 0 24 24" fill="currentColor" class="admin-icon">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
               </svg>
-              <span class="admin-text">نظام الإدارة</span>
+              <span class="admin-text">{{ i18n.t('admin_panel') }}</span>
             </a>
             
             <!-- Mobile Menu Toggle -->
             <button @click="toggleMobileMenu" class="mobile-toggle">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-            </svg>
+              </svg>
           </button>
           </div>
         </div>
@@ -58,22 +60,22 @@
         <div v-show="mobileMenuOpen" class="mobile-panel">
           <div class="mobile-nav">
             <router-link to="/" class="mobile-item" @click="closeMobileMenu">
-              <span>الرئيسية</span>
+              <span>{{ i18n.t('home') }}</span>
             </router-link>
             <router-link to="/products" class="mobile-item" @click="closeMobileMenu">
-              <span>منتجاتنا</span>
+              <span>{{ i18n.t('products') }}</span>
             </router-link>
             <router-link to="/about" class="mobile-item" @click="closeMobileMenu">
-              <span>عن الشركة</span>
+              <span>{{ i18n.t('about') }}</span>
             </router-link>
             <router-link to="/contact" class="mobile-item" @click="closeMobileMenu">
-              <span>تواصل معنا</span>
+              <span>{{ i18n.t('contact') }}</span>
             </router-link>
             <a href="/login" class="mobile-admin" @click="closeMobileMenu">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
-              <span>نظام الإدارة</span>
+              <span>{{ i18n.t('admin_panel') }}</span>
           </a>
           </div>
         </div>
@@ -86,7 +88,7 @@
     </main>
 
             <!-- Apple-Style Clean Footer -->
-        <footer class="medical-footer">
+        <footer class="medical-footer" :dir="i18n.isRTL() ? 'rtl' : 'ltr'">
           <div class="footer-container">
             <!-- Company Info Section -->
             <div class="footer-company">
@@ -97,12 +99,12 @@
                   </svg>
                 </div>
                 <div class="footer-brand-text">
-                  <h3 class="footer-brand">ديماس</h3>
-                  <p class="footer-tagline">الحلول الطبية المتقدمة</p>
+                  <h3 class="footer-brand">{{ i18n.t('company_name') }}</h3>
+                  <p class="footer-tagline">{{ i18n.t('company_tagline') }}</p>
                 </div>
               </div>
               <p class="company-description">
-                نحن شركة رائدة في مجال توفير المعدات والمستلزمات الطبية عالية الجودة للمؤسسات الصحية والمهنيين الطبيين في جميع أنحاء المملكة.
+                {{ i18n.t('company_description') }}
             </p>
           </div>
           
@@ -110,41 +112,47 @@
             <div class="footer-links-grid">
               <!-- Quick Links -->
           <div class="footer-section">
-                <h4 class="section-title">الصفحات الرئيسية</h4>
+                <h4 class="section-title">{{ i18n.t('main_pages') }}</h4>
             <ul class="footer-links">
-              <li><router-link to="/" class="footer-link">الرئيسية</router-link></li>
-                  <li><router-link to="/products" class="footer-link">منتجاتنا</router-link></li>
-                  <li><router-link to="/about" class="footer-link">عن الشركة</router-link></li>
-                  <li><router-link to="/contact" class="footer-link">تواصل معنا</router-link></li>
+              <li><router-link to="/" class="footer-link">{{ i18n.t('home') }}</router-link></li>
+                  <li><router-link to="/products" class="footer-link">{{ i18n.t('products') }}</router-link></li>
+                  <li><router-link to="/about" class="footer-link">{{ i18n.t('about') }}</router-link></li>
+                  <li><router-link to="/contact" class="footer-link">{{ i18n.t('contact') }}</router-link></li>
                 </ul>
               </div>
               
               <!-- Product Categories -->
               <div class="footer-section">
-                <h4 class="section-title">فئات المنتجات</h4>
+                <h4 class="section-title">{{ i18n.t('product_categories') }}</h4>
                 <ul class="footer-links">
-                  <li><router-link to="/category/wound-care" class="footer-link">العناية بالجروح</router-link></li>
-                  <li><router-link to="/category/infection-control" class="footer-link">مكافحة العدوى</router-link></li>
-                  <li><a href="#" class="footer-link">المعدات الجراحية</a></li>
-                  <li><a href="#" class="footer-link">أجهزة التشخيص</a></li>
+                  <li v-for="category in footerCategories" :key="category.id">
+                    <router-link :to="`/category/${category.slug}`" class="footer-link">
+                      {{ category.name }}
+                    </router-link>
+                  </li>
+                  <li v-if="footerCategories.length > 0">
+                    <router-link to="/products" class="footer-link footer-link-all">
+                      {{ i18n.t('view_all_products') }}
+                    </router-link>
+                  </li>
             </ul>
           </div>
           
               <!-- Contact Information -->
           <div class="footer-section">
-                <h4 class="section-title">معلومات التواصل</h4>
+                <h4 class="section-title">{{ i18n.t('contact_info') }}</h4>
             <div class="contact-info">
                   <div class="contact-item">
-                    <span class="contact-label">البريد الإلكتروني</span>
-                    <span class="contact-value">info@demas-medical.sa</span>
+                    <span class="contact-label">{{ i18n.t('email_label') }}</span>
+                    <span class="contact-value">info@dimas.sa</span>
                   </div>
                   <div class="contact-item">
-                    <span class="contact-label">الهاتف</span>
-                    <span class="contact-value">+966 11 234 5678</span>
+                    <span class="contact-label">{{ i18n.t('phone_label') }}</span>
+                    <span class="contact-value">+966 503402000</span>
                   </div>
                   <div class="contact-item">
-                    <span class="contact-label">العنوان</span>
-                    <span class="contact-value">الرياض، المملكة العربية السعودية</span>
+                    <span class="contact-label">{{ i18n.t('address_label') }}</span>
+                    <span class="contact-value">{{ i18n.t('address_value') }}</span>
                   </div>
                 </div>
               </div>
@@ -154,11 +162,11 @@
           <!-- Footer Bottom -->
         <div class="footer-bottom">
             <div class="footer-bottom-content">
-              <p class="copyright">© 2024 ديماس للحلول الطبية. جميع الحقوق محفوظة.</p>
+              <p class="copyright">{{ i18n.t('copyright') }}</p>
               <div class="footer-meta">
-                <a href="#" class="meta-link">سياسة الخصوصية</a>
-                <a href="#" class="meta-link">الشروط والأحكام</a>
-                <a href="#" class="meta-link">سياسة الإرجاع</a>
+                <a href="#" class="meta-link">{{ i18n.t('privacy_policy') }}</a>
+                <a href="#" class="meta-link">{{ i18n.t('terms_conditions') }}</a>
+                <a href="#" class="meta-link">{{ i18n.t('return_policy') }}</a>
               </div>
         </div>
       </div>
@@ -167,12 +175,23 @@
 </template>
 
 <script>
+import i18n from '../i18n/index.js'
+import LanguageSwitcher from './LanguageSwitcher.vue'
+
 export default {
   name: 'MainLayout',
+  components: {
+    LanguageSwitcher
+  },
   data() {
     return {
-      mobileMenuOpen: false
+      mobileMenuOpen: false,
+      i18n,
+      footerCategories: []
     }
+  },
+  async mounted() {
+    await this.loadFooterCategories()
   },
   methods: {
     toggleMobileMenu() {
@@ -180,6 +199,23 @@ export default {
     },
     closeMobileMenu() {
       this.mobileMenuOpen = false
+    },
+    handleLanguageChange(newLanguage) {
+      // Language change is handled by the LanguageSwitcher component
+      // This method can be used for additional logic if needed
+      console.log('Language changed to:', newLanguage)
+      // Reload categories when language changes
+      this.loadFooterCategories()
+    },
+    async loadFooterCategories() {
+      try {
+        const response = await fetch(`/api/v1/categories?per_page=4&locale=${i18n.currentLanguage}`)
+        const data = await response.json()
+        this.footerCategories = data.data || []
+      } catch (error) {
+        console.error('Error loading footer categories:', error)
+        this.footerCategories = []
+      }
     }
   }
 }
@@ -271,7 +307,7 @@ export default {
 }
 
 .brand-name {
-  font-family: var(--font-display);
+  font-family: var(--font-arabic);
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--gray-900);
@@ -280,6 +316,7 @@ export default {
 }
 
 .brand-tagline {
+  font-family: var(--font-arabic);
   font-size: 0.6875rem;
   color: var(--gray-500);
   font-weight: 400;
@@ -301,6 +338,7 @@ export default {
   padding: 0.5rem 0.875rem;
   color: var(--gray-600);
   text-decoration: none;
+  font-family: var(--font-arabic);
   font-weight: 400;
   font-size: 1.0625rem;
   border-radius: var(--radius-md);
@@ -349,6 +387,7 @@ export default {
   background: var(--primary);
   color: var(--white);
   text-decoration: none;
+  font-family: var(--font-arabic);
   border-radius: var(--radius-xl);
   font-weight: 400;
   font-size: 0.9375rem;
@@ -458,6 +497,12 @@ export default {
   align-items: start;
 }
 
+/* English layout - reverse order of main grid items */
+.medical-footer[dir="ltr"] .footer-container {
+  direction: ltr;
+  grid-template-columns: 1fr 2fr; /* عكس الترتيب: الروابط أولاً ثم الشعار */
+}
+
 /* Company Section */
 .footer-company {
   display: flex;
@@ -493,7 +538,7 @@ export default {
 }
 
 .footer-brand {
-  font-family: var(--font-display);
+  font-family: var(--font-arabic);
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--gray-900);
@@ -502,6 +547,7 @@ export default {
 }
 
 .footer-tagline {
+  font-family: var(--font-arabic);
   font-size: 0.75rem;
   color: var(--gray-500);
   margin: 0;
@@ -509,6 +555,7 @@ export default {
 }
 
 .company-description {
+  font-family: var(--font-arabic);
   color: var(--gray-600);
   line-height: 1.6;
   font-size: 0.9375rem;
@@ -529,6 +576,7 @@ export default {
 }
 
 .section-title {
+  font-family: var(--font-arabic);
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--gray-900);
@@ -548,6 +596,7 @@ export default {
 }
 
 .footer-link {
+  font-family: var(--font-arabic);
   color: var(--gray-600);
   text-decoration: none;
   font-size: 0.9375rem;
@@ -557,6 +606,19 @@ export default {
 
 .footer-link:hover {
   color: var(--primary);
+}
+
+.footer-link-all {
+  font-weight: 500;
+  color: var(--primary) !important;
+  border-top: 1px solid var(--gray-200);
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  display: block;
+}
+
+.footer-link-all:hover {
+  color: var(--primary-dark) !important;
 }
 
 /* Contact Info */
@@ -643,6 +705,7 @@ export default {
     grid-template-columns: 1fr;
     gap: var(--spacing-2xl);
   }
+  
   
   .footer-links-grid {
     grid-template-columns: repeat(2, 1fr);

@@ -132,26 +132,19 @@
                                 حفظ التعديلات
                             </button>
                         </div>
+                        
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" class="inline" 
+                                  onsubmit="return confirm('هل أنت متأكد من حذف هذه الفئة؟ سيتم حذف جميع المنتجات المرتبطة بها أيضاً.')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                    حذف الفئة
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </form>
-                
-                <!-- Delete Form (Outside the update form) -->
-                <div class="mt-6 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-lg font-semibold text-red-600">منطقة الخطر</h3>
-                            <p class="text-sm text-gray-600 mt-1">حذف الفئة عملية لا يمكن التراجع عنها</p>
-                        </div>
-                        <form method="POST" action="{{ route('admin.categories.destroy', $category) }}" class="inline" 
-                              onsubmit="return confirm('هل أنت متأكد من حذف هذه الفئة؟ سيتم حذف جميع المنتجات المرتبطة بها أيضاً.')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
-                                حذف الفئة
-                            </button>
-                        </form>
-                    </div>
-                </div>
             </div>
 
             <!-- Category Statistics -->

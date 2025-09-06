@@ -11,13 +11,15 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'category_id','name','slug','sku','hero_image',
-        'short_description','description','specs',
-        'meta_title','meta_description','is_active'
+        'category_id','name','name_en','slug','sku','hero_image',
+        'short_description','short_description_en','description','description_en',
+        'specs','option_tables','meta_title','meta_title_en',
+        'meta_description','meta_description_en','is_active'
     ];
 
     protected $casts = [
         'specs' => 'array',
+        'option_tables' => 'array',
         'is_active' => 'boolean',
     ];
 
@@ -36,6 +38,25 @@ class Product extends Model
      }
 
     public function getRouteKeyName(): string { return 'slug'; }
+
+    // Helper methods for multilingual content
+    public function getLocalizedName($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $locale === 'en' ? ($this->name_en ?? $this->name) : $this->name;
+    }
+
+    public function getLocalizedShortDescription($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $locale === 'en' ? ($this->short_description_en ?? $this->short_description) : $this->short_description;
+    }
+
+    public function getLocalizedDescription($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $locale === 'en' ? ($this->description_en ?? $this->description) : $this->description;
+    }
 
     protected static function booted()
     {

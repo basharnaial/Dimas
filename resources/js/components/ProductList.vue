@@ -1,16 +1,16 @@
 <template>
   <div class="products-container">
     <div class="products-header">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">منتجاتنا</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">{{ i18n.t('products') }}</h2>
       <div class="search-filter">
         <input 
           v-model="searchQuery" 
           type="text" 
-          placeholder="ابحث عن منتج..."
+          :placeholder="i18n.t('search_placeholder')"
           class="search-input"
         >
         <select v-model="selectedCategory" class="category-select">
-          <option value="">جميع الفئات</option>
+          <option value="">{{ i18n.t('all_categories') }}</option>
           <option v-for="category in categories" :key="category.id" :value="category.slug">
             {{ category.name }}
           </option>
@@ -42,23 +42,25 @@
             :to="`/product/${product.slug}`" 
             class="view-product-btn"
           >
-            عرض التفاصيل
+            {{ i18n.t('view_details') }}
           </router-link>
         </div>
       </div>
     </div>
 
     <div v-if="loading" class="loading">
-      جاري التحميل...
+      {{ i18n.t('loading') }}
     </div>
 
     <div v-if="!loading && filteredProducts.length === 0" class="no-products">
-      لا توجد منتجات
+      {{ i18n.t('no_products') }}
     </div>
   </div>
 </template>
 
 <script>
+import i18n from '../i18n/index.js'
+
 export default {
   name: 'ProductList',
   data() {
@@ -67,7 +69,8 @@ export default {
       categories: [],
       loading: true,
       searchQuery: '',
-      selectedCategory: ''
+      selectedCategory: '',
+      i18n
     }
   },
   computed: {
@@ -100,7 +103,7 @@ export default {
   methods: {
     async loadProducts() {
       try {
-        const response = await fetch('/api/v1/products')
+        const response = await fetch(`/api/v1/products?locale=${i18n.currentLanguage}`)
         const data = await response.json()
         this.products = data.data || []
       } catch (error) {
@@ -110,7 +113,7 @@ export default {
     },
     async loadCategories() {
       try {
-        const response = await fetch('/api/v1/categories')
+        const response = await fetch(`/api/v1/categories?locale=${i18n.currentLanguage}`)
         const data = await response.json()
         this.categories = data.data || []
       } catch (error) {
@@ -144,6 +147,7 @@ export default {
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 0.875rem;
+  font-family: var(--font-arabic);
 }
 
 .search-input {
@@ -171,6 +175,7 @@ export default {
 }
 
 .product-title {
+  font-family: var(--font-arabic);
   font-size: 1.125rem;
   font-weight: 600;
   color: #1f2937;
@@ -178,6 +183,7 @@ export default {
 }
 
 .product-description {
+  font-family: var(--font-arabic);
   color: #6b7280;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -199,6 +205,7 @@ export default {
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   text-decoration: none;
+  font-family: var(--font-arabic);
   font-size: 0.875rem;
   transition: background 0.2s;
 }
@@ -211,6 +218,7 @@ export default {
   text-align: center;
   padding: 2rem;
   color: #6b7280;
+  font-family: var(--font-arabic);
   font-size: 1.125rem;
 }
 </style>

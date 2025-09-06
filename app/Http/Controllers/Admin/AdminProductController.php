@@ -68,9 +68,6 @@ class AdminProductController extends Controller
             $validated['hero_image'] = $request->file('hero_image')->store('products', 'public');
         }
 
-        // Handle checkbox - if not present in request, it means unchecked (false)
-        $validated['is_active'] = $request->has('is_active') ? true : false;
-
         $product = Product::create($validated);
 
         // Handle image uploads
@@ -116,9 +113,6 @@ class AdminProductController extends Controller
             }
             $validated['hero_image'] = $request->file('hero_image')->store('products', 'public');
         }
-
-        // Handle checkbox - if not present in request, it means unchecked (false)
-        $validated['is_active'] = $request->has('is_active') ? true : false;
 
         $product->update($validated);
 

@@ -33,7 +33,6 @@ class UpdateProductRequest extends FormRequest
             'specs' => ['sometimes','nullable','array'],
             'meta_title' => ['sometimes','nullable','string','max:160'],
             'meta_description' => ['sometimes','nullable','string','max:500'],
-            'is_active' => ['sometimes','boolean'],
             'images' => ['sometimes','array'],
             'images.*.path' => ['required_with:images','string'],
             'images.*.sort_order' => ['nullable','integer','min:0'],

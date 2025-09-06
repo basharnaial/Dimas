@@ -325,32 +325,19 @@
                                         class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors">
                                     حفظ التعديلات
                                 </button>
+                                <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="inline" 
+                                      onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
+                                        حذف المنتج
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-            
-            <!-- Delete Form (Outside the update form) -->
-            <div class="mt-6 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold text-red-600">منطقة الخطر</h3>
-                        <p class="text-sm text-gray-600 mt-1">حذف المنتج عملية لا يمكن التراجع عنها</p>
-                        @if($product->images->count() > 0)
-                            <p class="text-sm text-yellow-600 mt-1">⚠️ سيتم حذف جميع الصور المرتبطة بالمنتج ({{ $product->images->count() }} صورة)</p>
-                        @endif
-                    </div>
-                    <form method="POST" action="{{ route('admin.products.destroy', $product) }}" class="inline" 
-                          onsubmit="return confirm('هل أنت متأكد من حذف هذا المنتج؟ سيتم حذف جميع الصور المرتبطة به أيضاً.')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors">
-                            حذف المنتج
-                        </button>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 

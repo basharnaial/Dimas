@@ -8,8 +8,8 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'description', 'is_active', 'sort_order',
-        'meta_title', 'meta_description'
+        'name', 'name_en', 'slug', 'description', 'description_en', 'is_active', 'sort_order',
+        'meta_title', 'meta_title_en', 'meta_description', 'meta_description_en'
     ];
 
     protected $casts = [
@@ -24,6 +24,19 @@ class Category extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    // Helper methods for multilingual content
+    public function getLocalizedName($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $locale === 'en' ? ($this->name_en ?? $this->name) : $this->name;
+    }
+
+    public function getLocalizedDescription($locale = null)
+    {
+        $locale = $locale ?? app()->getLocale();
+        return $locale === 'en' ? ($this->description_en ?? $this->description) : $this->description;
     }
 
     protected static function booted()

@@ -7,12 +7,16 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue',
+        './resources/js/**/*.js',
     ],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', 'Inter', ...defaultTheme.fontFamily.sans],
+                arabic: ['Cairo', ...defaultTheme.fontFamily.sans],
+                english: ['Poppins', 'Inter', ...defaultTheme.fontFamily.sans],
             },
         },
     },

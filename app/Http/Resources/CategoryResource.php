@@ -10,32 +10,22 @@ class CategoryResource extends JsonResource
     /**
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+        public function toArray(Request $request): array
     {
+        $locale = $request->get('locale', app()->getLocale());
+        
         return [
-            'id'               => $this->id,
-            'name'             => $this->name,
-            'slug'             => $this->slug,
-            'meta_title'       => $this->meta_title,
-            'meta_description' => $this->meta_description,
-            //  🎯 whenCounted('products') - قاعدة مهمة جداً:
+            'id' => $this->id,
+            'name' => $this->getLocalizedName($locale),
+            'name_ar' => $this->name,
+            'name_en' => $this->name_en,
+            'slug' => $this->slug,
+            'description' => $this->getLocalizedDescription($locale),
+            'description_ar' => $this->description,
+            'description_en' => $this->description_en,
+            'meta_title' => $locale === 'en' ? ($this->meta_title_en ?? $this->meta_title) : $this->meta_title,
+            'meta_description' => $locale === 'en' ? ($this->meta_description_en ?? $this->meta_description) : $this->meta_description,
             'products_count' => $this->whenCounted('products'),
-          /**
-         * 🎯 whenCounted('products') - قاعدة مهمة جداً:
-         * 
-         * يظهر products_count فقط إذا عملت withCount('products') في Controller
-         * 
-         * ✅ مع withCount:
-         * Category::withCount('products')->get(); 
-         * // products_count سيظهر في JSON
-         * 
-         * ❌ بدون withCount:
-         * Category::all(); 
-         * // products_count لن يظهر في JSON
-         * 
-         * 💡 الفكرة: لا ترسل بيانات غير موجودة!
-         */
-       
         ];
     }
 }

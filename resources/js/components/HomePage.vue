@@ -3,10 +3,10 @@
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-content">
-        <h1 class="hero-title">مرحباً بكم في موقع ديماس</h1>
-        <p class="hero-subtitle">اكتشفوا منتجاتنا المميزة وخدماتنا المتطورة</p>
+        <h1 class="hero-title">{{ i18n.t('welcome_title') }}</h1>
+        <p class="hero-subtitle">{{ i18n.t('welcome_subtitle') }}</p>
         <router-link to="/products" class="cta-button">
-          تصفح المنتجات
+          {{ i18n.t('browse_products') }}
         </router-link>
       </div>
     </section>
@@ -14,7 +14,7 @@
     <!-- Categories Section -->
     <section class="categories-section">
       <div class="container">
-        <h2 class="section-title">أقسامنا</h2>
+        <h2 class="section-title">{{ i18n.t('our_categories') }}</h2>
         <div class="categories-grid">
           <div 
             v-for="category in categories" 
@@ -30,7 +30,7 @@
             <h3 class="category-name">{{ category.name }}</h3>
             <p class="category-description">{{ category.description }}</p>
             <div class="category-products-count">
-              {{ category.products_count || 0 }} منتج
+              {{ category.products_count || 0 }} {{ i18n.t('product_count') }}
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
     <!-- Featured Products Section -->
     <section v-if="featuredProducts.length > 0" class="featured-products-section">
       <div class="container">
-        <h2 class="section-title">منتجات مميزة</h2>
+        <h2 class="section-title">{{ i18n.t('featured_products') }}</h2>
         <div class="products-grid">
           <div 
             v-for="product in featuredProducts" 
@@ -67,7 +67,7 @@
         </div>
         <div class="text-center mt-8">
           <router-link to="/products" class="view-all-button">
-            عرض جميع المنتجات
+            {{ i18n.t('view_all_products') }}
           </router-link>
         </div>
       </div>
@@ -76,10 +76,10 @@
     <!-- Contact Section -->
     <section class="contact-section">
       <div class="container">
-        <h2 class="section-title">تواصل معنا</h2>
-        <p class="contact-text">هل لديك استفسار؟ نحن هنا لمساعدتك</p>
+        <h2 class="section-title">{{ i18n.t('contact_section_title') }}</h2>
+        <p class="contact-text">{{ i18n.t('contact_section_text') }}</p>
         <router-link to="/contact" class="contact-button">
-          راسلنا الآن
+          {{ i18n.t('contact_now') }}
         </router-link>
       </div>
     </section>
@@ -87,24 +87,33 @@
 </template>
 
 <script>
+import i18n from '../i18n/index.js'
+
 export default {
   name: 'HomePage',
   data() {
     return {
       categories: [],
       featuredProducts: [],
-      loading: true
+      loading: true,
+      i18n
     }
   },
   async mounted() {
     await this.loadCategories()
     await this.loadFeaturedProducts()
     this.loading = false
+    
+    // Listen for language changes
+    this.$root.$on('languageChanged', (newLanguage) => {
+      this.loadCategories()
+      this.loadFeaturedProducts()
+    })
   },
   methods: {
     async loadCategories() {
       try {
-        const response = await fetch('/api/v1/categories')
+        const response = await fetch(`/api/v1/categories?locale=${i18n.currentLanguage}`)
         const data = await response.json()
         this.categories = data.data || []
       } catch (error) {
@@ -114,7 +123,7 @@ export default {
     },
     async loadFeaturedProducts() {
       try {
-        const response = await fetch('/api/v1/products?per_page=6')
+        const response = await fetch(`/api/v1/products?per_page=6&locale=${i18n.currentLanguage}`)
         const data = await response.json()
         this.featuredProducts = data.data || []
       } catch (error) {
@@ -157,12 +166,14 @@ export default {
 }
 
 .hero-title {
+  font-family: var(--font-arabic);
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
 .hero-subtitle {
+  font-family: var(--font-arabic);
   font-size: 1.25rem;
   margin-bottom: 2rem;
   opacity: 0.9;
@@ -175,6 +186,7 @@ export default {
   padding: 1rem 2rem;
   border-radius: 1rem;
   text-decoration: none;
+  font-family: var(--font-arabic);
   font-weight: 400;
   font-size: 1.0625rem;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -199,7 +211,7 @@ export default {
   text-align: center;
   margin-bottom: 3rem;
   color: #111827;
-  font-family: var(--font-display);
+  font-family: var(--font-arabic);
   letter-spacing: -0.02em;
 }
 
@@ -230,6 +242,7 @@ export default {
 }
 
 .category-name {
+  font-family: var(--font-arabic);
   font-size: 1.5rem;
   font-weight: 600;
   color: #1f2937;
@@ -237,12 +250,14 @@ export default {
 }
 
 .category-description {
+  font-family: var(--font-arabic);
   color: #6b7280;
   margin-bottom: 1rem;
   line-height: 1.6;
 }
 
 .category-products-count {
+  font-family: var(--font-arabic);
   color: #BFD72C;
   font-weight: 500;
 }
@@ -274,6 +289,7 @@ export default {
 }
 
 .product-title {
+  font-family: var(--font-arabic);
   font-size: 1.125rem;
   font-weight: 600;
   color: #1f2937;
@@ -281,6 +297,7 @@ export default {
 }
 
 .product-description {
+  font-family: var(--font-arabic);
   color: #6b7280;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -301,6 +318,7 @@ export default {
   padding: 0.6875rem 1.375rem;
   border-radius: 1rem;
   text-decoration: none;
+  font-family: var(--font-arabic);
   font-weight: 400;
   font-size: 1.0625rem;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -322,6 +340,7 @@ export default {
 }
 
 .contact-text {
+  font-family: var(--font-arabic);
   font-size: 1.25rem;
   margin-bottom: 2rem;
   opacity: 0.9;
@@ -334,6 +353,7 @@ export default {
   padding: 0.6875rem 1.375rem;
   border-radius: 1rem;
   text-decoration: none;
+  font-family: var(--font-arabic);
   font-weight: 500;
   font-size: 1.0625rem;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);

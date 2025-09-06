@@ -1,13 +1,13 @@
 <template>
   <div class="category-products-container">
     <div v-if="loading" class="loading">
-      جاري التحميل...
+      {{ i18n.t('loading') }}
     </div>
 
     <div v-else-if="category" class="category-products">
       <!-- Breadcrumb -->
       <nav class="breadcrumb mb-6">
-        <router-link to="/" class="breadcrumb-item">الرئيسية</router-link>
+        <router-link to="/" class="breadcrumb-item">{{ i18n.t('home') }}</router-link>
         <span class="breadcrumb-separator">/</span>
         <span class="breadcrumb-current">{{ category.name }}</span>
       </nav>
@@ -19,7 +19,7 @@
           {{ category.description }}
         </p>
         <div class="category-stats">
-          <span class="products-count">{{ products.length }} منتج</span>
+          <span class="products-count">{{ products.length }} {{ i18n.t('product_count') }}</span>
         </div>
       </div>
 
@@ -28,13 +28,13 @@
         <input 
           v-model="searchQuery" 
           type="text" 
-          placeholder="ابحث في منتجات هذا القسم..."
+          :placeholder="currentLanguage === 'ar' ? 'ابحث في منتجات هذا القسم...' : 'Search in this category products...'"
           class="search-input"
         >
         <select v-model="sortBy" class="sort-select">
-          <option value="name">ترتيب حسب الاسم</option>
-          <option value="created_at">ترتيب حسب التاريخ</option>
-          <option value="sku">ترتيب حسب SKU</option>
+          <option value="name">{{ currentLanguage === 'ar' ? 'ترتيب حسب الاسم' : 'Sort by Name' }}</option>
+          <option value="created_at">{{ currentLanguage === 'ar' ? 'ترتيب حسب التاريخ' : 'Sort by Date' }}</option>
+          <option value="sku">{{ currentLanguage === 'ar' ? 'ترتيب حسب SKU' : 'Sort by SKU' }}</option>
         </select>
       </div>
 
@@ -62,7 +62,7 @@
             </div>
             <div class="product-actions">
               <button class="view-product-btn">
-                عرض التفاصيل
+                {{ currentLanguage === 'ar' ? 'عرض التفاصيل' : 'View Details' }}
               </button>
             </div>
           </div>
@@ -75,10 +75,10 @@
           <svg class="no-products-icon" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd" />
           </svg>
-          <h3>لا توجد منتجات في هذا القسم</h3>
-          <p>جرب البحث بكلمات مختلفة أو تصفح الأقسام الأخرى</p>
+          <h3>{{ currentLanguage === 'ar' ? 'لا توجد منتجات في هذا القسم' : 'No products in this category' }}</h3>
+          <p>{{ currentLanguage === 'ar' ? 'جرب البحث بكلمات مختلفة أو تصفح الأقسام الأخرى' : 'Try searching with different keywords or browse other categories' }}</p>
           <router-link to="/" class="back-home-btn">
-            العودة للرئيسية
+            {{ currentLanguage === 'ar' ? 'العودة للرئيسية' : 'Back to Home' }}
           </router-link>
         </div>
       </div>
@@ -86,18 +86,20 @@
       <!-- Back to Categories -->
       <div class="back-to-categories">
         <router-link to="/" class="back-link">
-          ← العودة لجميع الأقسام
+          {{ currentLanguage === 'ar' ? '← العودة لجميع الأقسام' : '← Back to All Categories' }}
         </router-link>
       </div>
     </div>
 
     <div v-else class="not-found">
-      القسم غير موجود
+      {{ i18n.t('category_not_found') }}
     </div>
   </div>
 </template>
 
 <script>
+import i18n from '../i18n/index.js'
+
 export default {
   name: 'CategoryProducts',
   data() {
@@ -106,7 +108,8 @@ export default {
       products: [],
       loading: true,
       searchQuery: '',
-      sortBy: 'name'
+      sortBy: 'name',
+      i18n
     }
   },
   computed: {
@@ -140,6 +143,11 @@ export default {
   async mounted() {
     await this.loadCategoryAndProducts()
     this.loading = false
+    
+    // Listen for language changes
+    this.$root.$on('languageChanged', (newLanguage) => {
+      this.loadCategoryAndProducts()
+    })
   },
   methods: {
     async loadCategoryAndProducts() {
@@ -147,12 +155,12 @@ export default {
         const slug = this.$route.params.slug
         
         // Load category
-        const categoryResponse = await fetch(`/api/v1/categories/${slug}`)
+        const categoryResponse = await fetch(`/api/v1/categories/${slug}?locale=${i18n.currentLanguage}`)
         const categoryData = await categoryResponse.json()
         this.category = categoryData.data || categoryData
 
         // Load products for this category
-        const productsResponse = await fetch(`/api/v1/products?category=${slug}`)
+        const productsResponse = await fetch(`/api/v1/products?category=${slug}&locale=${i18n.currentLanguage}`)
         const productsData = await productsResponse.json()
         this.products = productsData.data || []
       } catch (error) {
@@ -167,7 +175,9 @@ export default {
     formatDate(dateString) {
       if (!dateString) return ''
       const date = new Date(dateString)
-      return date.toLocaleDateString('ar-SA')
+      return this.currentLanguage === 'ar' 
+        ? date.toLocaleDateString('ar-SA')
+        : date.toLocaleDateString('en-US')
     }
   }
 }
