@@ -70,8 +70,9 @@ const translations = {
     validation_errors: 'يرجى تصحيح الأخطاء التالية:',
     
     // Hero section
-    welcome_title: 'مرحباً بكم في موقع ديماس',
-    welcome_subtitle: 'اكتشفوا منتجاتنا المميزة وخدماتنا المتطورة',
+    welcome_title: 'مرحباً بكم في موقع',
+    welcome_title_brand: 'ديماس',
+    welcome_subtitle: 'اكتشفوا منتجاتنا المميزة',
     
     // Sections
     our_categories: 'أقسامنا',
@@ -174,9 +175,10 @@ const translations = {
     validation_errors: 'Please correct the following errors:',
     
     // Hero section
-    welcome_title: 'Welcome to Demas Website',
+    welcome_title: 'Welcome to ',
     welcome_subtitle: 'Discover our premium products and advanced services',
-    
+    welcome_title_brand: 'Dimas',
+
     // Sections
     our_categories: 'Our Categories',
     contact_section_title: 'Contact Us',

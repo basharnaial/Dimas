@@ -8,11 +8,8 @@
           <!-- Premium Medical Logo -->
           <div class="medical-logo">
             <router-link to="/" class="logo-container">
-              <div class="logo-icon">
-                <svg viewBox="0 0 24 24" fill="white" class="logo-svg">
-                  <path d="M12 2C13.1 2 14 2.9 14 4V10H20C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14H14V20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20V14H4C2.9 14 2 13.1 2 12C2 10.9 2.9 10 4 10H10V4C10 2.9 10.9 2 12 2Z"/>
-                </svg>
-              </div>
+              <img src="/storage/products/logo-dimas.svg" alt="Demas Logo" class="logo-svg" />
+
               <div class="logo-text">
                 <span class="brand-name">ديماس</span>
                 <span class="brand-tagline">الحلول الطبية المتقدمة</span>
@@ -306,8 +303,8 @@ export default {
 }
 
 .logo-svg {
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 1.875rem;
+  height: 1.875rem;
 }
 
 .logo-text {

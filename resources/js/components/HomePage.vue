@@ -2,8 +2,15 @@
   <div class="home-page">
     <!-- Hero Section -->
     <section class="hero-section">
+      <!-- Background Logo -->
+      <div class="hero-background-logo">
+        <img src="/storage/products/7Y7xXk01.svg" alt="Demas Background" class="background-logo-svg" />
+      </div>
       <div class="hero-content">
-        <h1 class="hero-title">{{ i18n.t('welcome_title') }}</h1>
+        <h1 class="hero-title">
+          {{ i18n.t('welcome_title') }} 
+          <span class="brand-highlight">{{ i18n.t('welcome_title_brand') }}</span>
+        </h1>
         <p class="hero-subtitle">{{ i18n.t('welcome_subtitle') }}</p>
         <router-link to="/products" class="cta-button">
           {{ i18n.t('browse_products') }}
@@ -175,11 +182,37 @@ export default {
   color: white;
   padding: 6rem 2rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-background-logo {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  opacity: 0.08;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.background-logo-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(2) contrast(0.5);
+  @media (max-width: 768px) {
+    filter: brightness(2) contrast(0.4);
+  }
 }
 
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-title {
@@ -187,6 +220,27 @@ export default {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.brand-highlight {
+  color: #c0d530;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(192, 213, 48, 0.3);
+  display: inline-block;
+  position: relative;
+  font-family: var(--font-arabic);
+}
+
+.brand-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #c0d530, #a5c41f);
+  border-radius: 2px;
+  opacity: 0.8;
 }
 
 .hero-subtitle {
