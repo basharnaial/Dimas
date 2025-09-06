@@ -3,6 +3,7 @@ import HomePage from '../components/HomePage.vue'
 import ProductList from '../components/ProductList.vue'
 import ProductDetail from '../components/ProductDetail.vue'
 import CategoryProducts from '../components/CategoryProducts.vue'
+import ContactPage from '../components/ContactPage.vue'
 
 const routes = [
   {
@@ -28,6 +29,12 @@ const routes = [
     name: 'product',
     component: ProductDetail,
     meta: { title: 'تفاصيل المنتج' }
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    component: ContactPage,
+    meta: { title: 'تواصل معنا' }
   }
 ]
 

@@ -29,9 +29,15 @@ export default {
         // Emit event to parent components
         this.$emit('language-changed', newLanguage)
         
-        // Emit global event for other components
-        if (this.$root) {
-          this.$root.$emit('languageChanged', newLanguage)
+        // Trigger all registered language change handlers
+        if (this.$root && this.$root.languageChangeHandlers) {
+          this.$root.languageChangeHandlers.forEach(handler => {
+            try {
+              handler(newLanguage)
+            } catch (error) {
+              console.error('Error in language change handler:', error)
+            }
+          })
         }
         
         // Emit specific event for MainLayout to reload categories
@@ -47,9 +53,9 @@ export default {
     getOtherLanguageLabel() {
       // إظهار اللغة الأخرى المتاحة للتبديل إليها
       if (i18n.currentLanguage === 'ar') {
-        return 'English'
+        return 'En'
       } else {
-        return 'العربية'
+        return 'ع'
       }
     }
   }

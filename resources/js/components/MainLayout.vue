@@ -9,7 +9,7 @@
           <div class="medical-logo">
             <router-link to="/" class="logo-container">
               <div class="logo-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="logo-svg">
+                <svg viewBox="0 0 24 24" fill="white" class="logo-svg">
                   <path d="M12 2C13.1 2 14 2.9 14 4V10H20C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14H14V20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20V14H4C2.9 14 2 13.1 2 12C2 10.9 2.9 10 4 10H10V4C10 2.9 10.9 2 12 2Z"/>
                 </svg>
               </div>
@@ -28,9 +28,9 @@
             <router-link to="/products" class="nav-item">
               <span>{{ i18n.t('products') }}</span>
             </router-link>
-            <router-link to="/about" class="nav-item">
+            <!-- <router-link to="/about" class="nav-item">
               <span>{{ i18n.t('about') }}</span>
-            </router-link>
+            </router-link> -->
             <router-link to="/contact" class="nav-item">
               <span>{{ i18n.t('contact') }}</span>
             </router-link>
@@ -41,15 +41,15 @@
             <LanguageSwitcher @language-changed="handleLanguageChange" />
             
             <a href="/login" class="admin-access">
-              <svg viewBox="0 0 24 24" fill="currentColor" class="admin-icon">
+              <svg viewBox="0 0 24 24" fill="white" class="admin-icon">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
               </svg>
-              <span class="admin-text">{{ i18n.t('admin_panel') }}</span>
+              <!-- <span class="admin-text">{{ i18n.t('admin_panel') }}</span> -->
             </a>
             
             <!-- Mobile Menu Toggle -->
             <button @click="toggleMobileMenu" class="mobile-toggle">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="white">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
               </svg>
           </button>
@@ -65,17 +65,17 @@
             <router-link to="/products" class="mobile-item" @click="closeMobileMenu">
               <span>{{ i18n.t('products') }}</span>
             </router-link>
-            <router-link to="/about" class="mobile-item" @click="closeMobileMenu">
+            <!-- <router-link to="/about" class="mobile-item" @click="closeMobileMenu">
               <span>{{ i18n.t('about') }}</span>
-            </router-link>
+            </router-link> -->
             <router-link to="/contact" class="mobile-item" @click="closeMobileMenu">
               <span>{{ i18n.t('contact') }}</span>
             </router-link>
             <a href="/login" class="mobile-admin" @click="closeMobileMenu">
-              <svg viewBox="0 0 24 24" fill="currentColor">
+              <svg viewBox="0 0 24 24" fill="white">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
-              <span>{{ i18n.t('admin_panel') }}</span>
+              <!-- <span>{{ i18n.t('admin_panel') }}</span> -->
           </a>
           </div>
         </div>
@@ -94,7 +94,7 @@
             <div class="footer-company">
               <div class="footer-logo">
                 <div class="footer-logo-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
+                  <svg viewBox="0 0 24 24" fill="white">
                     <path d="M12 2C13.1 2 14 2.9 14 4V10H20C21.1 10 22 10.9 22 12C22 13.1 21.1 14 20 14H14V20C14 21.1 13.1 22 12 22C10.9 22 10 21.1 10 20V14H4C2.9 14 2 13.1 2 12C2 10.9 2.9 10 4 10H10V4C10 2.9 10.9 2 12 2Z"/>
                   </svg>
                 </div>
@@ -116,7 +116,7 @@
             <ul class="footer-links">
               <li><router-link to="/" class="footer-link">{{ i18n.t('home') }}</router-link></li>
                   <li><router-link to="/products" class="footer-link">{{ i18n.t('products') }}</router-link></li>
-                  <li><router-link to="/about" class="footer-link">{{ i18n.t('about') }}</router-link></li>
+                  <!-- <li><router-link to="/about" class="footer-link">{{ i18n.t('about') }}</router-link></li> -->
                   <li><router-link to="/contact" class="footer-link">{{ i18n.t('contact') }}</router-link></li>
                 </ul>
               </div>
@@ -144,11 +144,21 @@
             <div class="contact-info">
                   <div class="contact-item">
                     <span class="contact-label">{{ i18n.t('email_label') }}</span>
-                    <span class="contact-value">info@dimas.sa</span>
+                    <a href="mailto:info@dimas.sa" class="contact-value contact-email">
+                      <svg class="contact-icon" viewBox="0 0 24 24" fill="white">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                      </svg>
+                      info@dimas.sa
+                    </a>
                   </div>
                   <div class="contact-item">
                     <span class="contact-label">{{ i18n.t('phone_label') }}</span>
-                    <span class="contact-value">+966 503402000</span>
+                    <a href="https://wa.me/966503402000" target="_blank" class="contact-value contact-whatsapp">
+                      <svg class="contact-icon" viewBox="0 0 24 24" fill="white">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                      </svg>
+                      <span dir="ltr">+966 50 340 2000</span>
+                    </a>
                   </div>
                   <div class="contact-item">
                     <span class="contact-label">{{ i18n.t('address_label') }}</span>
@@ -165,8 +175,7 @@
               <p class="copyright">{{ i18n.t('copyright') }}</p>
               <div class="footer-meta">
                 <a href="#" class="meta-link">{{ i18n.t('privacy_policy') }}</a>
-                <a href="#" class="meta-link">{{ i18n.t('terms_conditions') }}</a>
-                <a href="#" class="meta-link">{{ i18n.t('return_policy') }}</a>
+                <!-- <a href="#" class="meta-link">{{ i18n.t('terms_conditions') }}</a> -->
               </div>
         </div>
       </div>
@@ -388,7 +397,7 @@ export default {
   color: var(--white);
   text-decoration: none;
   font-family: var(--font-arabic);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-md);
   font-weight: 400;
   font-size: 0.9375rem;
   transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -402,8 +411,8 @@ export default {
 }
 
 .admin-icon {
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .mobile-toggle {
@@ -501,6 +510,12 @@ export default {
 .medical-footer[dir="ltr"] .footer-container {
   direction: ltr;
   grid-template-columns: 1fr 2fr; /* عكس الترتيب: الروابط أولاً ثم الشعار */
+}
+
+/* RTL support for contact icons */
+[dir="rtl"] .contact-email:hover,
+[dir="rtl"] .contact-whatsapp:hover {
+  transform: translateX(-2px);
 }
 
 /* Company Section */
@@ -646,6 +661,51 @@ export default {
   font-size: 0.9375rem;
   color: var(--gray-700);
   font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-email,
+.contact-whatsapp {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.contact-email:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6 !important;
+  transform: translateX(2px);
+}
+
+.contact-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.1);
+  color: #25D366 !important;
+  transform: translateX(2px);
+}
+
+.contact-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.contact-email .contact-icon {
+  color: #3b82f6;
+}
+
+.contact-whatsapp .contact-icon {
+  color: #25D366;
+}
+
+/* Phone number styling */
+.contact-whatsapp span[dir="ltr"] {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 /* Footer Bottom */

@@ -23,8 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin Routes with proper auth and authorization
-Route::middleware(['auth', 'verified', 'can:manage-catalog'])->prefix('admin')->name('admin.')->group(function () {
+// Admin Routes - accessible to all authenticated users
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::view('/', 'admin.dashboard')->name('dashboard');
     require __DIR__.'/admin.php';
 });

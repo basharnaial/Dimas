@@ -53,6 +53,22 @@ const translations = {
     related_products: 'منتجات مشابهة',
     copy_link: 'نسخ الرابط',
     
+    // Contact page
+    contact_hero_subtitle: 'نحن هنا لمساعدتك. تواصل معنا في أي وقت',
+    send_message: 'إرسال رسالة',
+    name_label: 'الاسم',
+    name_placeholder: 'أدخل اسمك الكامل',
+    email_placeholder: 'أدخل بريدك الإلكتروني',
+    phone_placeholder: 'أدخل رقم هاتفك',
+    message_label: 'الرسالة',
+    message_placeholder: 'اكتب رسالتك هنا...',
+    consent_text: 'أوافق على معالجة بياناتي الشخصية وفقاً لسياسة الخصوصية',
+    sending: 'جاري الإرسال...',
+    email_desc: 'راسلنا على البريد الإلكتروني',
+    phone_desc: 'تواصل معنا عبر الواتساب',
+    address_desc: 'زورنا في مقرنا الرئيسي',
+    validation_errors: 'يرجى تصحيح الأخطاء التالية:',
+    
     // Hero section
     welcome_title: 'مرحباً بكم في موقع ديماس',
     welcome_subtitle: 'اكتشفوا منتجاتنا المميزة وخدماتنا المتطورة',
@@ -140,6 +156,22 @@ const translations = {
     additional_details: 'Additional Details',
     related_products: 'Related Products',
     copy_link: 'Copy Link',
+    
+    // Contact page
+    contact_hero_subtitle: 'We are here to help you. Contact us anytime',
+    send_message: 'Send Message',
+    name_label: 'Name',
+    name_placeholder: 'Enter your full name',
+    email_placeholder: 'Enter your email address',
+    phone_placeholder: 'Enter your phone number',
+    message_label: 'Message',
+    message_placeholder: 'Write your message here...',
+    consent_text: 'I agree to the processing of my personal data according to the privacy policy',
+    sending: 'Sending...',
+    email_desc: 'Send us an email',
+    phone_desc: 'Contact us via WhatsApp',
+    address_desc: 'Visit us at our main office',
+    validation_errors: 'Please correct the following errors:',
     
     // Hero section
     welcome_title: 'Welcome to Demas Website',

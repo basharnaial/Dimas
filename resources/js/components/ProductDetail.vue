@@ -197,11 +197,29 @@ export default {
     await this.loadProduct()
     this.loading = false
     
-    // Listen for language changes
-    this.$root.$on('languageChanged', (newLanguage) => {
-      this.loadProduct() // Reload product data with new language
-    })
+    // Listen for language changes using Vue 3 approach
+    if (this.$root && this.$root.$emit) {
+      // Create a listener for language changes
+      this.languageChangeHandler = (newLanguage) => {
+        this.loadProduct() // Reload product data with new language
+      }
+      
+      // Store the handler for cleanup
+      this.$root.languageChangeHandlers = this.$root.languageChangeHandlers || []
+      this.$root.languageChangeHandlers.push(this.languageChangeHandler)
+    }
   },
+  
+  beforeUnmount() {
+    // Clean up event listener
+    if (this.$root && this.$root.languageChangeHandlers) {
+      const index = this.$root.languageChangeHandlers.indexOf(this.languageChangeHandler)
+      if (index > -1) {
+        this.$root.languageChangeHandlers.splice(index, 1)
+      }
+    }
+  },
+  
   methods: {
     async loadProduct() {
       try {
