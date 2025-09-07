@@ -15,7 +15,14 @@ class CategoryController extends Controller
      // GET /api/v1/categories
      public function index(Request $request)
      {
-         $q = Category::query()->withCount('products');
+         $q = Category::query()->withCount(['products' => function ($query) {
+             $query->where('is_active', true);
+         }]);
+
+         // فلترة بالأقسام المفعلة فقط (للعرض العام)
+         if (!$request->has('include_inactive') || !$request->boolean('include_inactive')) {
+             $q->where('is_active', true);
+         }
  
          if ($request->filled('search')) {
              $s = $request->string('search');
@@ -28,9 +35,16 @@ class CategoryController extends Controller
      }
  
      // GET /api/v1/categories/{slug}
-     public function show(Category $category)
+     public function show(Request $request, Category $category)
      {
-         $category->loadCount('products');
+         // التحقق من أن القسم مفعل (إلا إذا كان الطلب يتضمن include_inactive)
+         if ((!$request->has('include_inactive') || !$request->boolean('include_inactive')) && !$category->is_active) {
+             return response()->json(['message' => 'Category not found.'], 404);
+         }
+
+         $category->loadCount(['products' => function ($query) {
+             $query->where('is_active', true);
+         }]);
          return new CategoryResource($category);
      }
  
@@ -38,7 +52,9 @@ class CategoryController extends Controller
      public function store(StoreCategoryRequest $request)
      {
          $cat = Category::create($request->validated());
-         $cat->loadCount('products');
+         $cat->loadCount(['products' => function ($query) {
+             $query->where('is_active', true);
+         }]);
          return (new CategoryResource($cat))
              ->additional(['message' => 'Category created.']);
      }
@@ -47,7 +63,9 @@ class CategoryController extends Controller
      public function update(UpdateCategoryRequest $request, Category $category)
      {
          $category->update($request->validated());
-         $category->loadCount('products');
+         $category->loadCount(['products' => function ($query) {
+             $query->where('is_active', true);
+         }]);
          return (new CategoryResource($category))
              ->additional(['message' => 'Category updated.']);
      }

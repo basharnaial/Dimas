@@ -246,12 +246,12 @@
                                     <div class="spec-item grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-2">اسم المواصفة</label>
-                                            <input type="text" name="specs[{{ $specCount }}][key]" value="{{ is_array($value) ? $value['key'] ?? $key : $key }}" 
+                                            <input type="text" name="specs[{{ $specCount }}][key]" value="{{ is_array($value) ? ($value['key'] ?? $key) : $key }}" 
                                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-2">القيمة</label>
-                                            <input type="text" name="specs[{{ $specCount }}][value]" value="{{ is_array($value) ? $value['value'] ?? $value : $value }}" 
+                                            <input type="text" name="specs[{{ $specCount }}][value]" value="{{ is_array($value) ? ($value['value'] ?? (is_array($value) ? json_encode($value) : $value)) : $value }}" 
                                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                         </div>
                                     </div>
@@ -300,7 +300,7 @@
                                     <div class="mb-4">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (عربي)</label>
                                         <input type="text" name="option_tables[{{ $tableIndex }}][title]" 
-                                               value="{{ $table['title'] ?? '' }}"
+                                               value="{{ is_array($table['title'] ?? '') ? '' : ($table['title'] ?? '') }}"
                                                placeholder="مثل: معلومات الطلب" 
                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                     </div>
@@ -309,7 +309,7 @@
                                     <div class="mb-4">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">عنوان الجدول (إنجليزي)</label>
                                         <input type="text" name="option_tables[{{ $tableIndex }}][title_en]" 
-                                               value="{{ $table['title_en'] ?? '' }}"
+                                               value="{{ is_array($table['title_en'] ?? '') ? '' : ($table['title_en'] ?? '') }}"
                                                placeholder="e.g: Ordering Information" 
                                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                     </div>
@@ -320,7 +320,7 @@
                                         <textarea name="option_tables[{{ $tableIndex }}][description]" 
                                                   rows="2"
                                                   placeholder="وصف مختصر عن محتوى الجدول"
-                                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">{{ $table['description'] ?? '' }}</textarea>
+                                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">{{ is_array($table['description'] ?? '') ? '' : ($table['description'] ?? '') }}</textarea>
                                     </div>
 
                                     <!-- Table Description - English -->
@@ -329,7 +329,7 @@
                                         <textarea name="option_tables[{{ $tableIndex }}][description_en]" 
                                                   rows="2"
                                                   placeholder="Brief description about table content"
-                                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">{{ $table['description_en'] ?? '' }}</textarea>
+                                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">{{ is_array($table['description_en'] ?? '') ? '' : ($table['description_en'] ?? '') }}</textarea>
                                     </div>
                                     
                                     <!-- Column Count -->
@@ -346,7 +346,7 @@
                                         <div class="columns-grid grid grid-cols-1 md:grid-cols-{{ min(count($table['columns'] ?? []) ?: 3, 4) }} gap-3">
                                             @foreach(($table['columns'] ?? []) as $colIndex => $column)
                                                 <input type="text" name="option_tables[{{ $tableIndex }}][columns][{{ $colIndex }}]" 
-                                                       value="{{ $column }}"
+                                                       value="{{ is_array($column) ? '' : $column }}"
                                                        placeholder="العمود {{ $colIndex + 1 }}" 
                                                        class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                             @endforeach
@@ -359,7 +359,7 @@
                                         <div class="columns-grid-en grid grid-cols-1 md:grid-cols-{{ min(count($table['columns_en'] ?? $table['columns'] ?? []) ?: 3, 4) }} gap-3">
                                             @foreach(($table['columns_en'] ?? array_fill(0, count($table['columns'] ?? []), '')) as $colIndex => $column)
                                                 <input type="text" name="option_tables[{{ $tableIndex }}][columns_en][{{ $colIndex }}]" 
-                                                       value="{{ $column }}"
+                                                       value="{{ is_array($column) ? '' : $column }}"
                                                        placeholder="Column {{ $colIndex + 1 }}" 
                                                        class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                             @endforeach
@@ -380,7 +380,7 @@
                                                 <div class="row-item grid grid-cols-1 md:grid-cols-{{ min(count($table['columns'] ?? []) ?: 3, 4) }} gap-3 mb-2">
                                                     @foreach($row as $cellIndex => $cellValue)
                                                         <input type="text" name="option_tables[{{ $tableIndex }}][rows][{{ $rowIndex }}][{{ $cellIndex }}]" 
-                                                               value="{{ $cellValue }}"
+                                                               value="{{ is_array($cellValue) ? '' : $cellValue }}"
                                                                placeholder="قيمة العمود {{ $cellIndex + 1 }}" 
                                                                class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
                                                     @endforeach
@@ -444,6 +444,8 @@
                     <div class="p-6">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
+                                <!-- Hidden input to ensure is_active is always sent -->
+                                <input type="hidden" name="is_active" value="0">
                                 <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $product->is_active) ? 'checked' : '' }}
                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                 <label for="is_active" class="mr-2 block text-sm font-medium text-gray-700">

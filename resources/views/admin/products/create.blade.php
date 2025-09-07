@@ -347,6 +347,8 @@
                     <div class="p-6">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
+                                <!-- Hidden input to ensure is_active is always sent -->
+                                <input type="hidden" name="is_active" value="0">
                                 <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}
                                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                 <label for="is_active" class="mr-2 block text-sm font-medium text-gray-700">

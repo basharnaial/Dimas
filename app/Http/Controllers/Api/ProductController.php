@@ -18,6 +18,11 @@ class ProductController extends Controller
     {
         $q = Product::query()->with(['category', 'images']);
 
+        // فلترة بالمنتجات المفعلة فقط (للعرض العام)
+        if (!$request->has('include_inactive') || !$request->boolean('include_inactive')) {
+            $q->where('is_active', true);
+        }
+
         // فلترة بالقسم (slug)
         if ($request->filled('category')) {
             $slug = $request->string('category');
@@ -53,8 +58,13 @@ class ProductController extends Controller
     }
 
     // GET /api/v1/products/{slug}
-    public function show(Product $product)
+    public function show(Request $request, Product $product)
     {
+        // التحقق من أن المنتج مفعل (إلا إذا كان الطلب يتضمن include_inactive)
+        if ((!$request->has('include_inactive') || !$request->boolean('include_inactive')) && !$product->is_active) {
+            return response()->json(['message' => 'Product not found.'], 404);
+        }
+
         $product->load(['category', 'images']);
         return new ProductResource($product);
     }

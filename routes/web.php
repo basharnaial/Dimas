@@ -12,9 +12,9 @@ Route::get('/', function () {
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])
     ->name('sitemap');
 
-// Laravel Breeze Routes
+// Laravel Breeze Routes - Redirect to admin
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

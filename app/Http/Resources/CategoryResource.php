@@ -25,6 +25,7 @@ class CategoryResource extends JsonResource
             'description_en' => $this->description_en,
             'meta_title' => $locale === 'en' ? ($this->meta_title_en ?? $this->meta_title) : $this->meta_title,
             'meta_description' => $locale === 'en' ? ($this->meta_description_en ?? $this->meta_description) : $this->meta_description,
+            'is_active' => $this->is_active,
             'products_count' => $this->whenCounted('products'),
         ];
     }

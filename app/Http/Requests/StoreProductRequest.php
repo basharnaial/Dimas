@@ -49,7 +49,7 @@ class StoreProductRequest extends FormRequest
             'meta_title_en' => ['nullable','string','max:160'],
             'meta_description' => ['nullable','string','max:500'],
             'meta_description_en' => ['nullable','string','max:500'],
-            'is_active' => ['nullable','boolean'],
+            'is_active' => ['nullable','boolean','in:0,1'],
             'images' => ['nullable','array'],
             'images.*.path' => ['required_with:images','string'],
             'images.*.sort_order' => ['nullable','integer','min:0'],

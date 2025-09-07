@@ -50,7 +50,7 @@ class UpdateProductRequest extends FormRequest
             'meta_title_en' => ['sometimes','nullable','string','max:160'],
             'meta_description' => ['sometimes','nullable','string','max:500'],
             'meta_description_en' => ['sometimes','nullable','string','max:500'],
-            'is_active' => ['sometimes','boolean'],
+            'is_active' => ['sometimes','boolean','in:0,1'],
             'images' => ['sometimes','array'],
             'images.*.path' => ['required_with:images','string'],
             'images.*.sort_order' => ['nullable','integer','min:0'],

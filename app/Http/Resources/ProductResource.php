@@ -38,6 +38,7 @@ class ProductResource extends JsonResource
             'option_tables' => $this->option_tables ?? [],
             'meta_title' => $locale === 'en' ? ($this->meta_title_en ?? $this->meta_title) : $this->meta_title,
             'meta_description' => $locale === 'en' ? ($this->meta_description_en ?? $this->meta_description) : $this->meta_description,
+            'is_active' => $this->is_active,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'images' => ProductImageResource::collection($this->whenLoaded('images')),
         ];
