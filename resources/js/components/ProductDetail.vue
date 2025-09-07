@@ -21,6 +21,7 @@
             <img 
               :src="selectedImage || product.images?.[0]?.url || product.hero_image_url || '/images/placeholder.jpg'" 
               :alt="product.name"
+              loading="lazy"
               class="w-full h-96 object-cover rounded-lg"
             >
           </div>
@@ -30,6 +31,7 @@
               :key="index"
               :src="image.url" 
               :alt="`${product.name} - صورة ${index + 1}`"
+              loading="lazy"
               @click="selectedImage = image.url"
               :class="['thumbnail', { active: selectedImage === image.url }]"
             >
@@ -327,10 +329,19 @@ export default {
 </script>
 
 <style scoped>
+/* Global mobile fixes */
+* {
+  box-sizing: border-box;
+}
+
 .product-detail-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .breadcrumb {
@@ -363,6 +374,11 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   margin-bottom: 3rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 125, 187, 0.1);
 }
 
 .product-images {
@@ -372,7 +388,14 @@ export default {
 }
 
 .main-image img {
-  border: 1px solid #e5e7eb;
+  border: 1px solid rgba(0, 125, 187, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.main-image img:hover {
+  transform: scale(1.02);
 }
 
 .image-thumbnails {
@@ -809,7 +832,37 @@ export default {
   }
 }
 
+/* Responsive Design */
+/* Large screens */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+  
+  .product-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .product-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
   .product-content {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -823,6 +876,181 @@ export default {
   .whatsapp-btn,
   .share-container {
     flex: 1;
+  }
+  
+  .product-title {
+    font-size: 1.75rem;
+  }
+  
+  .product-description {
+    font-size: 0.9rem;
+  }
+  
+  .product-specs {
+    font-size: 0.9rem;
+  }
+  
+  .main-image img {
+    height: 20rem;
+  }
+  
+  .image-thumbnails {
+    gap: 0.5rem;
+  }
+  
+  .thumbnail {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 640px) {
+  .product-detail-container {
+    padding: 1rem 0.75rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .breadcrumb-separator {
+    margin: 0 0.25rem;
+  }
+  
+  .product-content {
+    gap: 1.5rem;
+  }
+  
+  .product-title {
+    font-size: 1.5rem;
+  }
+  
+  .product-description {
+    font-size: 0.85rem;
+  }
+  
+  .product-specs {
+    font-size: 0.85rem;
+  }
+  
+  .main-image img {
+    height: 16rem;
+  }
+  
+  .image-thumbnails {
+    gap: 0.25rem;
+  }
+  
+  .thumbnail {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  
+  .whatsapp-btn,
+  .share-container {
+    width: 100%;
+  }
+  
+  .whatsapp-btn,
+  .share-btn {
+    justify-content: center;
+    min-height: 44px; /* Touch target size */
+  }
+  
+  .option-table {
+    padding: 1rem;
+  }
+  
+  .table-title {
+    font-size: 1rem;
+  }
+  
+  .table-wrapper {
+    font-size: 0.7rem;
+  }
+  
+  .table-header,
+  .table-cell {
+    padding: 0.4rem 0.5rem;
+  }
+  
+  .related-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .related-product-card {
+    padding: 0.75rem;
+  }
+  
+  .related-product-title {
+    font-size: 0.9rem;
+  }
+  
+  .related-product-description {
+    font-size: 0.75rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .product-detail-container {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.7rem;
+  }
+  
+  .product-title {
+    font-size: 1.25rem;
+  }
+  
+  .product-description {
+    font-size: 0.8rem;
+  }
+  
+  .main-image img {
+    height: 14rem;
+  }
+  
+  .thumbnail {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .option-table {
+    padding: 0.75rem;
+  }
+  
+  .table-wrapper {
+    font-size: 0.65rem;
+  }
+  
+  .table-header,
+  .table-cell {
+    padding: 0.3rem 0.4rem;
+  }
+  
+  .related-products-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .related-product-card {
+    padding: 0.5rem;
+  }
+  
+  .related-product-title {
+    font-size: 0.85rem;
+  }
+  
+  .related-product-description {
+    font-size: 0.7rem;
   }
 }
 </style>

@@ -1,7 +1,21 @@
 <template>
   <div class="category-products-container">
-    <div v-if="loading" class="loading">
-      {{ i18n.t('loading') }}
+    <!-- Skeleton Loading State -->
+    <div v-if="loading" class="skeleton-loader">
+      <div class="skeleton-grid">
+        <div v-for="n in 6" :key="n" class="skeleton-card">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-description"></div>
+            <div class="skeleton-meta">
+              <div class="skeleton-meta-item"></div>
+              <div class="skeleton-meta-item"></div>
+            </div>
+            <div class="skeleton-button"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-else-if="category" class="category-products">
@@ -50,6 +64,7 @@
             <img 
               :src="product.images?.[0]?.url || product.hero_image_url || '/images/placeholder.jpg'" 
               :alt="product.name"
+              loading="lazy"
               class="w-full h-48 object-cover rounded-t-lg"
             >
           </div>
@@ -202,10 +217,19 @@ export default {
 </script>
 
 <style scoped>
+/* Global mobile fixes */
+* {
+  box-sizing: border-box;
+}
+
 .category-products-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .breadcrumb {
@@ -271,6 +295,12 @@ export default {
   display: flex;
   gap: 1rem;
   align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 125, 187, 0.1);
+  margin-bottom: 2rem;
 }
 
 .search-input {
@@ -279,6 +309,10 @@ export default {
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   font-size: 1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
 }
 
 .sort-select {
@@ -287,6 +321,10 @@ export default {
   border-radius: 0.375rem;
   font-size: 1rem;
   min-width: 200px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
 }
 
 .products-grid {
@@ -303,6 +341,9 @@ export default {
   transition: transform 0.2s, box-shadow 0.2s;
   background: white;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .product-card:hover {
@@ -322,6 +363,7 @@ export default {
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 1rem;
+  flex-grow: 1;
 }
 
 .product-meta {
@@ -332,8 +374,16 @@ export default {
   color: #9ca3af;
 }
 
+.product-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .product-actions {
   text-align: center;
+  margin-top: auto;
 }
 
 .view-product-btn {
@@ -419,7 +469,141 @@ export default {
   font-size: 1.125rem;
 }
 
+/* Skeleton Loading Styles */
+.skeleton-loader {
+  padding: 1rem;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.skeleton-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 12rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+.skeleton-content {
+  padding: 1rem;
+}
+
+.skeleton-title {
+  height: 1.25rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+  width: 80%;
+}
+
+.skeleton-description {
+  height: 0.875rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.skeleton-description:last-of-type {
+  width: 60%;
+}
+
+.skeleton-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.skeleton-meta-item {
+  height: 0.75rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 0.25rem;
+  width: 30%;
+}
+
+.skeleton-button {
+  height: 2rem;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 0.375rem;
+  width: 40%;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Responsive Design */
+/* Large screens */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Medium screens */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
   .category-title {
     font-size: 2rem;
   }
@@ -427,10 +611,134 @@ export default {
   .search-filter {
     flex-direction: column;
     align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .product-card {
+    margin-bottom: 1rem;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .category-select {
+    width: 100%;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 640px) {
+  .category-products-container {
+    padding: 1rem 0.75rem;
+  }
+  
+  .category-title {
+    font-size: 1.75rem;
+  }
+  
+  .category-description {
+    font-size: 0.9rem;
   }
   
   .products-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .product-card {
+    margin-bottom: 0.75rem;
+  }
+  
+  .product-title {
+    font-size: 1rem;
+  }
+  
+  .product-description {
+    font-size: 0.8rem;
+  }
+  
+  .product-meta {
+    font-size: 0.7rem;
+  }
+  
+  .view-product-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-height: 44px; /* Touch target size */
+  }
+  
+  .search-filter {
+    gap: 0.75rem;
+  }
+  
+  .search-input {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .category-select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.8rem;
+  }
+  
+  .back-home-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .category-products-container {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+  }
+  
+  .product-card {
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-image img {
+    height: 10rem;
+  }
+  
+  .product-info {
+    padding: 0.75rem;
+  }
+  
+  .product-title {
+    font-size: 0.9rem;
+  }
+  
+  .product-description {
+    font-size: 0.75rem;
+  }
+  
+  .breadcrumb {
+    font-size: 0.75rem;
   }
 }
 </style>

@@ -177,17 +177,22 @@
         </div>
       </div>
     </footer>
+    
+    <!-- WhatsApp Floating Button -->
+    <WhatsAppButton />
   </div>
 </template>
 
 <script>
 import i18n from '../i18n/index.js'
 import LanguageSwitcher from './LanguageSwitcher.vue'
+import WhatsAppButton from './WhatsAppButton.vue'
 
 export default {
   name: 'MainLayout',
   components: {
-    LanguageSwitcher
+    LanguageSwitcher,
+    WhatsAppButton
   },
   data() {
     return {
@@ -492,9 +497,21 @@ export default {
 
 /* Apple-Style Clean Footer */
 .medical-footer {
-  background: var(--surface-secondary);
-  border-top: 0.5px solid var(--gray-200);
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-top: 1px solid rgba(0, 125, 187, 0.1);
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.medical-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #007DBB, #BFD72C);
 }
 
 .footer-container {
@@ -505,6 +522,8 @@ export default {
   grid-template-columns: 1fr 2fr;
   gap: var(--spacing-3xl);
   align-items: start;
+  position: relative;
+  z-index: 1;
 }
 
 /* Mobile layout - single column */
@@ -604,12 +623,19 @@ export default {
 .footer-logo-icon {
   width: 2rem;
   height: 2rem;
-  background: var(--primary);
+  background: linear-gradient(135deg, #007DBB 0%, #005A85 100%);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--white);
+  box-shadow: 0 4px 15px rgba(0, 125, 187, 0.3);
+  transition: all 0.3s ease;
+}
+
+.footer-logo-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 125, 187, 0.4);
 }
 
 .footer-logo-icon svg {
@@ -668,6 +694,19 @@ export default {
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2rem;
+  height: 2px;
+  background: linear-gradient(90deg, #007DBB, #BFD72C);
+  border-radius: 1px;
 }
 
 /* Footer Links */
@@ -685,8 +724,25 @@ export default {
   color: var(--gray-600);
   text-decoration: none;
   font-size: 0.9375rem;
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   line-height: 1.4;
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #007DBB, #BFD72C);
+  transition: width 0.3s ease;
+}
+
+.footer-link:hover::before {
+  width: 100%;
 }
 
 .footer-link:hover {
@@ -746,15 +802,17 @@ export default {
 }
 
 .contact-email:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
   color: #3b82f6 !important;
   transform: translateX(2px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
 }
 
 .contact-whatsapp:hover {
-  background: rgba(37, 211, 102, 0.1);
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.1) 0%, rgba(37, 211, 102, 0.05) 100%);
   color: #25D366 !important;
   transform: translateX(2px);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
 }
 
 .contact-icon {
@@ -780,8 +838,19 @@ export default {
 
 /* Footer Bottom */
 .footer-bottom {
-  border-top: 0.5px solid var(--gray-200);
-  background: var(--surface-tertiary);
+  border-top: 1px solid rgba(0, 125, 187, 0.1);
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  position: relative;
+}
+
+.footer-bottom::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 125, 187, 0.3), transparent);
 }
 
 .footer-bottom-content {
@@ -792,6 +861,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .copyright {
@@ -810,7 +881,24 @@ export default {
   color: var(--gray-500);
   text-decoration: none;
   font-size: 0.875rem;
-  transition: color 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.meta-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #007DBB, #BFD72C);
+  transition: width 0.3s ease;
+}
+
+.meta-link:hover::before {
+  width: 100%;
 }
 
 .meta-link:hover {
